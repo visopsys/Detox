@@ -91,7 +91,7 @@ class DetoxAssertion {
     };
   }
 
-  static waitForAssertMatcherWithSearchAction(i, m, searchMatcher) {
+  static waitForAssertMatcherWithSearchAction(i, m, searchAction, searchMatcher) {
     if ((typeof m !== 'object' || typeof m.constructor !== 'function' || m.constructor.name.indexOf('Matcher') === -1) && (typeof m !== 'object' || m.type !== 'Invocation' || typeof m.value !== 'object' || typeof m.value.target !== 'object' || m.value.target.value.indexOf('Matcher') === -1)) {
       const isObject = typeof m === 'object';
       const additionalErrorInfo = isObject ? typeof m.constructor === 'object' ? 'the constructor is no object' : 'it has a wrong class name: "' + m.constructor.name + '"' : 'it is no object';
@@ -116,6 +116,9 @@ class DetoxAssertion {
       }, {
         type: "Invocation",
         value: sanitize_matcher(m)
+      }, {
+        type: "ViewAction",
+        value: searchAction
       }, {
         type: "Invocation",
         value: sanitize_matcher(searchMatcher)

@@ -162,12 +162,12 @@ class UiDevice {
     };
   }
 
-  static pressKeyCode(element, keyCode, metaState) {
+  static pressKeyCode2(element, keyCode, metaState) {
     if (typeof keyCode !== "number") throw new Error("keyCode should be a number, but got " + (keyCode + (" (" + (typeof keyCode + ")"))));
     if (typeof metaState !== "number") throw new Error("metaState should be a number, but got " + (metaState + (" (" + (typeof metaState + ")"))));
     return {
       target: element,
-      method: "pressKeyCode",
+      method: "pressKeyCode2",
       args: [{
         type: "Integer",
         value: keyCode

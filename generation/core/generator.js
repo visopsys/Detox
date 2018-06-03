@@ -46,17 +46,29 @@ module.exports = function getGenerator({
    * }
    */
   function createClass(json) {
-    return t.classDeclaration(
-      t.identifier(json.name),
-      null,
-      t.classBody(
-        json.methods
-          .filter(filterMethodsWithUnsupportedParams)
-          .filter(filterMethodsWithBlacklistedName)
-          .map(createMethod.bind(null, json))
-      ),
-      []
+    const methods = renameDuplicateMethods(
+      json.methods.filter(filterMethodsWithUnsupportedParams).filter(filterMethodsWithBlacklistedName)
     );
+    return t.classDeclaration(t.identifier(json.name), null, t.classBody(methods.map(createMethod.bind(null, json))), []);
+  }
+
+  function renameDuplicateMethods(methods) {
+    const knownNames = [];
+    return methods.map((method) => {
+      if (knownNames.includes(method.name)) {
+        console.log('Found a duplicate method named', method.name);
+        const newName = method.name + '2';
+
+        knownNames.push(newName);
+        return {
+          ...method,
+          name: newName
+        };
+      }
+
+      knownNames.push(method.name);
+      return method;
+    });
   }
 
   function filterMethodsWithBlacklistedName({ name }) {

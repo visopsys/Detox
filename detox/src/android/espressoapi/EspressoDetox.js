@@ -9,7 +9,7 @@ function sanitize_viewInteraction(value) {
   return typeof value === 'function' ? value() : value;
 } 
 class EspressoDetox {
-  static perform(interaction) {
+  static perform(interaction, action) {
     return {
       target: {
         type: "Class",
@@ -19,6 +19,9 @@ class EspressoDetox {
       args: [{
         type: "Invocation",
         value: sanitize_viewInteraction(interaction)
+      }, {
+        type: "ViewAction",
+        value: action
       }]
     };
   }

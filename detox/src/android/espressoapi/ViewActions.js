@@ -21,14 +21,17 @@ class ViewActions {
     };
   }
 
-  static actionWithAssertions() {
+  static actionWithAssertions(viewAction) {
     return {
       target: {
         type: "Class",
         value: "android.support.test.espresso.action.ViewActions"
       },
       method: "actionWithAssertions",
-      args: []
+      args: [{
+        type: "ViewAction",
+        value: viewAction
+      }]
     };
   }
 
@@ -54,14 +57,17 @@ class ViewActions {
     };
   }
 
-  static click() {
+  static click2(rollbackAction) {
     return {
       target: {
         type: "Class",
         value: "android.support.test.espresso.action.ViewActions"
       },
-      method: "click",
-      args: []
+      method: "click2",
+      args: [{
+        type: "ViewAction",
+        value: rollbackAction
+      }]
     };
   }
 
@@ -261,7 +267,7 @@ class ViewActions {
     };
   }
 
-  static repeatedlyUntil(desiredStateMatcher, maxAttempts) {
+  static repeatedlyUntil(action, desiredStateMatcher, maxAttempts) {
     if ((typeof desiredStateMatcher !== 'object' || typeof desiredStateMatcher.constructor !== 'function' || desiredStateMatcher.constructor.name.indexOf('Matcher') === -1) && (typeof desiredStateMatcher !== 'object' || desiredStateMatcher.type !== 'Invocation' || typeof desiredStateMatcher.value !== 'object' || typeof desiredStateMatcher.value.target !== 'object' || desiredStateMatcher.value.target.value.indexOf('Matcher') === -1)) {
       const isObject = typeof desiredStateMatcher === 'object';
       const additionalErrorInfo = isObject ? typeof desiredStateMatcher.constructor === 'object' ? 'the constructor is no object' : 'it has a wrong class name: "' + desiredStateMatcher.constructor.name + '"' : 'it is no object';
@@ -276,6 +282,9 @@ class ViewActions {
       },
       method: "repeatedlyUntil",
       args: [{
+        type: "ViewAction",
+        value: action
+      }, {
         type: "Invocation",
         value: sanitize_matcher(desiredStateMatcher)
       }, {
