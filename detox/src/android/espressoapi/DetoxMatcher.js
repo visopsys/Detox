@@ -5,8 +5,21 @@
 */
 
 
-function sanitize_matcher(matcher) {
+function sanitize_matcher(matcherThunk) {
+  const matcher = typeof matcherThunk === 'function' ? matcherThunk() : matcherThunk;
+  if (matcher.type) {
+    return matcher.value;
+  }
+
   const originalMatcher = typeof matcher._call === 'function' ? matcher._call() : matcher._call;
+  try {
+    originalMatcher.type
+  } catch (e) {
+    console.log("sanitize_matcher", matcherThunk);
+    console.log("M", matcher);
+    console.log("OM", originalMatcher);
+    console.log("OM-key", Object.keys(originalMatcher));
+  }
   return originalMatcher.type ? originalMatcher.value : originalMatcher;
 } 
 class DetoxMatcher {

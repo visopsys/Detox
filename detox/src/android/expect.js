@@ -140,7 +140,7 @@ class WaitForInteraction extends Interaction {
     if (typeof timeout !== 'number') throw new Error(`WaitForInteraction withTimeout argument must be a number, got ${typeof timeout}`);
     if (timeout < 0) throw new Error('timeout must be larger than 0');
 
-    this._call = invoke.call(invoke.Android.Class(DetoxAssertion), 'waitForAssertMatcher', this._element._call, this._originalMatcher._call, invoke.Android.Double(timeout/1000));
+    this._call = DetoxAssertionApi.waitForAssertMatcher(this._element._call, this._originalMatcher._call, timeout / 1000);
     await this.execute();
   }
 

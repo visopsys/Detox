@@ -35,6 +35,7 @@ const contentSanitizersForFunction = {
     value: callGlobal('sanitize_android_edge')
   },
   'Matcher<View>': {
+    // TODO: we can remove this, right?
     type: 'String',
     name: 'sanitize_matcher',
     value: callGlobal('sanitize_matcher')

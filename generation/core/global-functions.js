@@ -126,7 +126,12 @@ function sanitize_uiAccessibilityTraits(value) {
   return traits;
 } // END sanitize_uiAccessibilityTraits
 
-function sanitize_matcher(matcher) {
+function sanitize_matcher(matcherThunk) {
+  const matcher = typeof matcherThunk === 'function' ? matcherThunk() : matcherThunk;
+  if (matcher.type) {
+    return matcher.value;
+  }
+
   const originalMatcher = typeof matcher._call === 'function' ? matcher._call() : matcher._call;
   return originalMatcher.type ? originalMatcher.value : originalMatcher;
 } // END sanitize_matcher
