@@ -5,8 +5,24 @@
 */
 
 
-
+function sanitize_viewInteraction(value) {
+  return typeof value === 'function' ? value() : value;
+} 
 class EspressoDetox {
+  static perform(interaction) {
+    return {
+      target: {
+        type: "Class",
+        value: "com.wix.detox.espresso.EspressoDetox"
+      },
+      method: "perform",
+      args: [{
+        type: "Invocation",
+        value: sanitize_viewInteraction(interaction)
+      }]
+    };
+  }
+
   static changeOrientation(orientation) {
     if (typeof orientation !== "number") throw new Error("orientation should be a number, but got " + (orientation + (" (" + (typeof orientation + ")"))));
     return {

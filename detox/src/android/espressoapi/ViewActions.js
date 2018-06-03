@@ -5,7 +5,10 @@
 */
 
 
-
+function sanitize_matcher(matcher) {
+  const originalMatcher = typeof matcher._call === 'function' ? matcher._call() : matcher._call;
+  return originalMatcher.type ? originalMatcher.value : originalMatcher;
+} 
 class ViewActions {
   static clearGlobalAssertions() {
     return {
@@ -18,6 +21,17 @@ class ViewActions {
     };
   }
 
+  static actionWithAssertions() {
+    return {
+      target: {
+        type: "Class",
+        value: "android.support.test.espresso.action.ViewActions"
+      },
+      method: "actionWithAssertions",
+      args: []
+    };
+  }
+
   static clearText() {
     return {
       target: {
@@ -25,6 +39,17 @@ class ViewActions {
         value: "android.support.test.espresso.action.ViewActions"
       },
       method: "clearText",
+      args: []
+    };
+  }
+
+  static click() {
+    return {
+      target: {
+        type: "Class",
+        value: "android.support.test.espresso.action.ViewActions"
+      },
+      method: "click",
       args: []
     };
   }
@@ -233,6 +258,30 @@ class ViewActions {
       },
       method: "openLinkWithUri",
       args: [uri]
+    };
+  }
+
+  static repeatedlyUntil(desiredStateMatcher, maxAttempts) {
+    if ((typeof desiredStateMatcher !== 'object' || typeof desiredStateMatcher.constructor !== 'function' || desiredStateMatcher.constructor.name.indexOf('Matcher') === -1) && (typeof desiredStateMatcher !== 'object' || desiredStateMatcher.type !== 'Invocation' || typeof desiredStateMatcher.value !== 'object' || typeof desiredStateMatcher.value.target !== 'object' || desiredStateMatcher.value.target.value.indexOf('Matcher') === -1)) {
+      const isObject = typeof desiredStateMatcher === 'object';
+      const additionalErrorInfo = isObject ? typeof desiredStateMatcher.constructor === 'object' ? 'the constructor is no object' : 'it has a wrong class name: "' + desiredStateMatcher.constructor.name + '"' : 'it is no object';
+      throw new Error('desiredStateMatcher should be an instance of Matcher, got "' + desiredStateMatcher + '", it appears that ' + additionalErrorInfo);
+    }
+
+    if (typeof maxAttempts !== "number") throw new Error("maxAttempts should be a number, but got " + (maxAttempts + (" (" + (typeof maxAttempts + ")"))));
+    return {
+      target: {
+        type: "Class",
+        value: "android.support.test.espresso.action.ViewActions"
+      },
+      method: "repeatedlyUntil",
+      args: [{
+        type: "Invocation",
+        value: sanitize_matcher(desiredStateMatcher)
+      }, {
+        type: "Integer",
+        value: maxAttempts
+      }]
     };
   }
 

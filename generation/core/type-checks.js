@@ -72,9 +72,17 @@ function isOfClass(className) {
   return ({ name }) =>
     template(`
 	if (
-		typeof ARG !== 'object' ||
-		typeof ARG.constructor !== 'function' ||
-		ARG.constructor.name.indexOf('${className}') === -1
+		(
+      typeof ARG !== 'object' ||
+		  typeof ARG.constructor !== 'function' ||
+      ARG.constructor.name.indexOf('${className}') === -1
+    ) && (
+      typeof ARG !== 'object' ||
+      ARG.type !== 'Invocation' ||
+      typeof ARG.value !== 'object' ||
+      typeof ARG.value.target !== 'object' ||
+      ARG.value.target.value.indexOf('${className}') === -1
+    )
 	) {
 		const isObject = typeof ARG === 'object';
 		const additionalErrorInfo = isObject ? (typeof ARG.constructor === 'object' ? 'the constructor is no object' : 'it has a wrong class name: "' + ARG.constructor.name +'"') : 'it is no object';

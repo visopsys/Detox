@@ -147,6 +147,10 @@ function sanitize_uiDeviceOrientation(value) {
   return orientationMapping[value];
 } // END sanitize_uiDeviceOrientation
 
+function sanitize_viewInteraction(value) {
+  return typeof value === 'function' ? value() : value;
+} // END sanitize_viewInteraction
+
 module.exports = {
   sanitize_greyDirection,
   sanitize_greyContentEdge,
@@ -154,5 +158,6 @@ module.exports = {
   sanitize_android_direction,
   sanitize_android_edge,
   sanitize_matcher,
-  sanitize_greyElementInteraction
+  sanitize_greyElementInteraction,
+  sanitize_viewInteraction
 };

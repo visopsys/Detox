@@ -2,6 +2,7 @@ const invoke = require('../invoke');
 const matchers = require('./matcher');
 const DetoxActionApi = require('./espressoapi/DetoxAction');
 const ViewActionsApi = require('./espressoapi/ViewActions');
+const DetoxAssertionApi = require('./espressoapi/DetoxAssertion');
 const Matcher = matchers.Matcher;
 const LabelMatcher = matchers.LabelMatcher;
 const IdMatcher = matchers.IdMatcher;
@@ -234,13 +235,13 @@ class ExpectElement extends Expect {
     return await new MatcherAssertionInteraction(this._element, new VisibleMatcher()).execute();
   }
   async toBeNotVisible() {
-    return await invocationManager.execute(invoke.call(invoke.Android.Class(DetoxAssertion), 'assertNotVisible', this._element._call));
+    return await invocationManager.execute(DetoxAssertionApi.assertNotVisible(this._element._call));
   }
   async toExist() {
     return await new MatcherAssertionInteraction(this._element, new ExistsMatcher()).execute();
   }
   async toNotExist() {
-    return await invocationManager.execute(invoke.call(invoke.Android.Class(DetoxAssertion), 'assertNotExists', this._element._call));
+    return await invocationManager.execute(DetoxAssertionApi.assertNotExists(this._element._call));
   }
   async toHaveText(value) {
     return await new MatcherAssertionInteraction(this._element, new TextMatcher(value)).execute();
