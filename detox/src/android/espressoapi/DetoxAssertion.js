@@ -15,21 +15,26 @@ function sanitize_matcher(matcherThunk) {
   }
 
   const originalMatcher = typeof matcher._call === 'function' ? matcher._call() : matcher._call;
-  try {
-    originalMatcher.type
-  } catch (e) {
-    console.log("sanitize_matcher", matcherThunk);
-    console.log("M", matcher);
-    console.log("OM", originalMatcher);
-    console.log("OM-key", Object.keys(originalMatcher));
-  }
   return originalMatcher.type ? originalMatcher.value : originalMatcher;
 } 
 class DetoxAssertion {
   static assertMatcher(i, m) {
-    if ((typeof m !== 'object' || typeof m.constructor !== 'function' || m.constructor.name.indexOf('Matcher') === -1) && (typeof m !== 'object' || m.type !== 'Invocation' || typeof m.value !== 'object' || typeof m.value.target !== 'object' || m.value.target.value.indexOf('Matcher') === -1)) {
-      const isObject = typeof m === 'object';
-      const additionalErrorInfo = isObject ? typeof m.constructor === 'object' ? 'the constructor is no object' : 'it has a wrong class name: "' + m.constructor.name + '"' : 'it is no object';
+    if ((typeof m !== 'object' || typeof m.constructor !== 'function' || m.constructor.name.indexOf('Matcher') === -1) && (typeof m !== 'object' || m.type !== 'Invocation' || typeof m.value !== 'object' || typeof m.value.target !== 'object' || m.value.target.value.indexOf('Matcher') === -1) && (typeof m !== 'function' || typeof m() !== 'object' || typeof m().constructor !== 'function' || m().constructor.name.indexOf('Matcher') === -1)) {
+      let additionalErrorInfo = '';
+      let item = m;
+
+      if (typeof item === 'function') {
+        item = item();
+        additionalErrorInfo += 'it is a function which returns "' + item + '" and ';
+      }
+
+      if (typeof item === 'object') {
+        additionalErrorInfo += typeof item.constructor === 'object' ? 'the constructor is no object' : 'it has a wrong class name: "' + item.constructor.name + '"';
+        additionalErrorInfo += 'The current value is ' + JSON.stringify(item);
+      } else {
+        additionalErrorInfo += 'it is no object';
+      }
+
       throw new Error('m should be an instance of Matcher, got "' + m + '", it appears that ' + additionalErrorInfo);
     }
 
@@ -78,9 +83,22 @@ class DetoxAssertion {
   }
 
   static waitForAssertMatcher(i, m, timeoutSeconds) {
-    if ((typeof m !== 'object' || typeof m.constructor !== 'function' || m.constructor.name.indexOf('Matcher') === -1) && (typeof m !== 'object' || m.type !== 'Invocation' || typeof m.value !== 'object' || typeof m.value.target !== 'object' || m.value.target.value.indexOf('Matcher') === -1)) {
-      const isObject = typeof m === 'object';
-      const additionalErrorInfo = isObject ? typeof m.constructor === 'object' ? 'the constructor is no object' : 'it has a wrong class name: "' + m.constructor.name + '"' : 'it is no object';
+    if ((typeof m !== 'object' || typeof m.constructor !== 'function' || m.constructor.name.indexOf('Matcher') === -1) && (typeof m !== 'object' || m.type !== 'Invocation' || typeof m.value !== 'object' || typeof m.value.target !== 'object' || m.value.target.value.indexOf('Matcher') === -1) && (typeof m !== 'function' || typeof m() !== 'object' || typeof m().constructor !== 'function' || m().constructor.name.indexOf('Matcher') === -1)) {
+      let additionalErrorInfo = '';
+      let item = m;
+
+      if (typeof item === 'function') {
+        item = item();
+        additionalErrorInfo += 'it is a function which returns "' + item + '" and ';
+      }
+
+      if (typeof item === 'object') {
+        additionalErrorInfo += typeof item.constructor === 'object' ? 'the constructor is no object' : 'it has a wrong class name: "' + item.constructor.name + '"';
+        additionalErrorInfo += 'The current value is ' + JSON.stringify(item);
+      } else {
+        additionalErrorInfo += 'it is no object';
+      }
+
       throw new Error('m should be an instance of Matcher, got "' + m + '", it appears that ' + additionalErrorInfo);
     }
 
@@ -105,15 +123,41 @@ class DetoxAssertion {
   }
 
   static waitForAssertMatcherWithSearchAction(i, m, searchAction, searchMatcher) {
-    if ((typeof m !== 'object' || typeof m.constructor !== 'function' || m.constructor.name.indexOf('Matcher') === -1) && (typeof m !== 'object' || m.type !== 'Invocation' || typeof m.value !== 'object' || typeof m.value.target !== 'object' || m.value.target.value.indexOf('Matcher') === -1)) {
-      const isObject = typeof m === 'object';
-      const additionalErrorInfo = isObject ? typeof m.constructor === 'object' ? 'the constructor is no object' : 'it has a wrong class name: "' + m.constructor.name + '"' : 'it is no object';
+    if ((typeof m !== 'object' || typeof m.constructor !== 'function' || m.constructor.name.indexOf('Matcher') === -1) && (typeof m !== 'object' || m.type !== 'Invocation' || typeof m.value !== 'object' || typeof m.value.target !== 'object' || m.value.target.value.indexOf('Matcher') === -1) && (typeof m !== 'function' || typeof m() !== 'object' || typeof m().constructor !== 'function' || m().constructor.name.indexOf('Matcher') === -1)) {
+      let additionalErrorInfo = '';
+      let item = m;
+
+      if (typeof item === 'function') {
+        item = item();
+        additionalErrorInfo += 'it is a function which returns "' + item + '" and ';
+      }
+
+      if (typeof item === 'object') {
+        additionalErrorInfo += typeof item.constructor === 'object' ? 'the constructor is no object' : 'it has a wrong class name: "' + item.constructor.name + '"';
+        additionalErrorInfo += 'The current value is ' + JSON.stringify(item);
+      } else {
+        additionalErrorInfo += 'it is no object';
+      }
+
       throw new Error('m should be an instance of Matcher, got "' + m + '", it appears that ' + additionalErrorInfo);
     }
 
-    if ((typeof searchMatcher !== 'object' || typeof searchMatcher.constructor !== 'function' || searchMatcher.constructor.name.indexOf('Matcher') === -1) && (typeof searchMatcher !== 'object' || searchMatcher.type !== 'Invocation' || typeof searchMatcher.value !== 'object' || typeof searchMatcher.value.target !== 'object' || searchMatcher.value.target.value.indexOf('Matcher') === -1)) {
-      const isObject = typeof searchMatcher === 'object';
-      const additionalErrorInfo = isObject ? typeof searchMatcher.constructor === 'object' ? 'the constructor is no object' : 'it has a wrong class name: "' + searchMatcher.constructor.name + '"' : 'it is no object';
+    if ((typeof searchMatcher !== 'object' || typeof searchMatcher.constructor !== 'function' || searchMatcher.constructor.name.indexOf('Matcher') === -1) && (typeof searchMatcher !== 'object' || searchMatcher.type !== 'Invocation' || typeof searchMatcher.value !== 'object' || typeof searchMatcher.value.target !== 'object' || searchMatcher.value.target.value.indexOf('Matcher') === -1) && (typeof searchMatcher !== 'function' || typeof searchMatcher() !== 'object' || typeof searchMatcher().constructor !== 'function' || searchMatcher().constructor.name.indexOf('Matcher') === -1)) {
+      let additionalErrorInfo = '';
+      let item = searchMatcher;
+
+      if (typeof item === 'function') {
+        item = item();
+        additionalErrorInfo += 'it is a function which returns "' + item + '" and ';
+      }
+
+      if (typeof item === 'object') {
+        additionalErrorInfo += typeof item.constructor === 'object' ? 'the constructor is no object' : 'it has a wrong class name: "' + item.constructor.name + '"';
+        additionalErrorInfo += 'The current value is ' + JSON.stringify(item);
+      } else {
+        additionalErrorInfo += 'it is no object';
+      }
+
       throw new Error('searchMatcher should be an instance of Matcher, got "' + searchMatcher + '", it appears that ' + additionalErrorInfo);
     }
 

@@ -122,7 +122,8 @@ class ActionInteraction extends Interaction {
 class MatcherAssertionInteraction extends Interaction {
   constructor(element, matcher) {
     super();
-    this._call = invoke.call(invoke.Android.Class(DetoxAssertion), 'assertMatcher', element._call, matcher._call);
+    this._call = DetoxAssertionApi.assertMatcher(element._call, matcher._call);
+    // this._call = invoke.call(invoke.Android.Class(DetoxAssertion), 'assertMatcher', element._call, matcher._call);
     // TODO: move this.execute() here from the caller
   }
 }
