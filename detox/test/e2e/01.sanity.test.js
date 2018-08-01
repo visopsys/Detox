@@ -1,4 +1,8 @@
 describe('Sanity', () => {
+  beforeAll(async () => {
+    await device.launchApp({ newInstance: true });
+  });
+
   beforeEach(async () => {
     await device.reloadReactNative();
     await element(by.text('Sanity')).tap();

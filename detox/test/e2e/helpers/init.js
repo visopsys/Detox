@@ -7,7 +7,7 @@ jasmine.getEnv().addReporter(adapter);
 
 beforeAll(async () => {
   try {
-    await detox.init(config);
+    await detox.init(config, { launchApp: false });
   } catch (e) {
     await detox.cleanup();
     await new Promise(resolve => setTimeout(resolve, 1000));

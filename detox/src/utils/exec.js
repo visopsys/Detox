@@ -96,7 +96,8 @@ function spawnAndLog(command, flags, options) {
   const cmd = _joinCommandAndFlags(command, flags);
   const log = execLogger.child({ fn: 'spawnAndLog', cmd, trackingId });
 
-  const result = spawn(command, flags, {stdio: ['ignore', 'pipe', 'pipe'], detached: true, ...options});
+  const spawnOptions = {stdio: ['ignore', 'pipe', 'pipe'], detached: true, ...options};
+  const result = spawn(command, flags, spawnOptions);
   const { childProcess } = result;
   const { exitCode, stdout, stderr } = childProcess;
 
@@ -106,8 +107,10 @@ function spawnAndLog(command, flags, options) {
     log.error({ event: 'SPAWN_ERROR' }, `${cmd} failed with code = ${exitCode}`);
   }
 
-  stdout.on('data', (chunk) => log.trace({ stdout: true, event: 'SPAWN_STDOUT' }, chunk.toString()));
-  stderr.on('data', (chunk) => log.trace({ stderr: true, event: 'SPAWN_STDERR' }, chunk.toString()));
+  if (!spawnOptions.silent) {
+    stdout.on('data', (chunk) => log.trace({ stdout: true, event: 'SPAWN_STDOUT' }, chunk.toString()));
+    stderr.on('data', (chunk) => log.trace({ stderr: true, event: 'SPAWN_STDERR' }, chunk.toString()));
+  }
 
   function onEnd(e) {
     const signal = e.childProcess.signalCode || '';
@@ -130,8 +133,27 @@ function _joinCommandAndFlags(command, flags) {
   return result;
 }
 
+async function interruptProcess(childProcessPromise, signal = 'SIGINT') {
+  const log = execLogger.child({ fn: 'interruptProcess' });
+  const process = childProcessPromise.childProcess;
+
+  const pid = childProcessPromise.childProcess.pid;
+  const spawnargs = process.spawnargs.join(' ');
+
+  log.debug({ event: 'KILL', signal, process_pid: pid }, `sending signal ${signal} to process (pid = ${pid}): ${spawnargs}`);
+
+  childProcessPromise.childProcess.kill(signal);
+  await childProcessPromise.catch(e => {
+    /* istanbul ignore if */
+    if (e.exitCode != null) {
+      throw e;
+    }
+  });
+}
+
 module.exports = {
   execWithRetriesAndLogs,
-  spawnAndLog
+  spawnAndLog,
+  interruptProcess,
 };
 

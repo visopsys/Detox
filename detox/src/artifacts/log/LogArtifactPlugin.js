@@ -15,6 +15,22 @@ class LogArtifactPlugin extends StartupAndTestRecorderPlugin {
     this.keepOnlyFailedTestsArtifacts = recordLogs === 'failing';
   }
 
+  async onLaunchApp(event) {
+    await super.onLaunchApp(event);
+
+    if (this.currentRecording) {
+      await this.currentRecording.start({
+        bundleId: event.bundleId,
+        deviceId: event.deviceId,
+        pid: event.pid
+      });
+    }
+  }
+
+  createStartupRecording() {
+    return this.createTestRecording();
+  }
+
   async preparePathForStartupArtifact() {
     const deviceId = this.context.deviceId;
     const timestamp = getTimeStampString();

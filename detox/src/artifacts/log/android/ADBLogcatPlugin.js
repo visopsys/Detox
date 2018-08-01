@@ -9,18 +9,6 @@ class ADBLogcatPlugin extends LogArtifactPlugin {
     this._devicePathBuilder = config.devicePathBuilder;
   }
 
-  async onLaunchApp(event) {
-    await super.onLaunchApp(event);
-
-    if (this.currentRecording) {
-      await this.currentRecording.start({ pid: event.pid });
-    }
-  }
-
-  createStartupRecording() {
-    return this.createTestRecording();
-  }
-
   createTestRecording() {
     const { deviceId, bundleId, pid } = this.context;
 
