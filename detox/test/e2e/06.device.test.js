@@ -66,5 +66,4 @@ describe('Device', () => {
       await expect(element(by.text('Back pressed !'))).toBeVisible();
     });
   });
-
 });

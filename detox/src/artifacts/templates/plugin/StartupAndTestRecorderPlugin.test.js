@@ -341,13 +341,13 @@ class FakeStartupAndTestRecorderPlugin extends StartupAndTestRecorderPlugin {
     this.createdArtifacts = [];
   }
 
-  preparePathForStartupArtifact() {
-    super.preparePathForStartupArtifact();
+  async preparePathForStartupArtifact() {
+    await super.preparePathForStartupArtifact();
     return '/tmp/fakeStartupArtifact';
   }
 
-  preparePathForTestArtifact(testSummary) {
-    super.preparePathForTestArtifact(testSummary);
+  async preparePathForTestArtifact(testSummary) {
+    await super.preparePathForTestArtifact(testSummary);
     return `/tmp/${testSummary.title}/fakeArtifact`;
   }
 
