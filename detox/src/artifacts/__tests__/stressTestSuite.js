@@ -130,7 +130,7 @@ module.exports = function (createPlugin) {
       let pid = 2018;
       let testNumber = 1;
 
-      const params = {
+      const createParamFor = {
         onBootDevice: jest.fn().mockReturnValue({
           deviceId: 'testDevice',
         }),
@@ -155,15 +155,15 @@ module.exports = function (createPlugin) {
         onAfterAll: () => {},
       };
 
-      const plugin = createPlugin();
+      const plugin = createPlugin({ type, description, scenario });
       for (const action of scenario.split(' => ')) {
-        const p = params[action]();
+        const param = createParamFor[action]();
 
         if (action === 'onBeforeEach') {
           await plugin.onBeforeAll();
         }
 
-        await plugin[action](p);
+        await plugin[action](param);
       }
     });
   }
