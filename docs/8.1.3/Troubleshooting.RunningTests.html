@@ -1,0 +1,167 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Failing Tests · Detox</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="* [Enable trace mode](#enable-trace-mode)"/><meta name="docsearch:version" content="8.1.3"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Failing Tests · Detox"/><meta property="og:type" content="website"/><meta property="og:url" content="https://wix.github.io/detox/index.html"/><meta property="og:description" content="* [Enable trace mode](#enable-trace-mode)"/><meta name="twitter:card" content="summary"/><link rel="shortcut icon" href="/detox/img/favicon.png"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><link rel="stylesheet" href="/detox/css/main.css"/></head><body class="sideNavVisible"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/detox/"><h2 class="headerTitle">Detox</h2></a><a href="/detox/versions.html"><h3>8.1.3</h3></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class="siteNavGroupActive"><a href="/detox/docs/8.1.3/Introduction.GettingStarted.html" target="_self">Getting Started</a></li><li class=""><a href="https://github.com/wix/detox" target="_self">GitHub</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><i></i></div><h2><i>›</i><span>Troubleshooting</span></h2></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">Introduction</h3><ul><li class="navListItem"><a class="navItem" href="/detox/docs/8.1.3/Introduction.GettingStarted.html">Getting Started</a></li><li class="navListItem"><a class="navItem" href="/detox/docs/8.1.3/Introduction.WritingFirstTest.html">Writing Your First Test</a></li><li class="navListItem"><a class="navItem" href="/detox/docs/8.1.3/Introduction.Android.html">Detox for Android</a></li><li class="navListItem"><a class="navItem" href="/detox/docs/8.1.3/Introduction.HowDetoxWorks.html">How Detox Works</a></li><li class="navListItem"><a class="navItem" href="/detox/docs/8.1.3/Introduction.Workflows.html">Workflows</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Guide</h3><ul><li class="navListItem"><a class="navItem" href="/detox/docs/8.1.3/Guide.RunningLocally.html">Running Tests Locally</a></li><li class="navListItem"><a class="navItem" href="/detox/docs/8.1.3/Guide.DevelopingWhileWritingTests.html">Developing Your App While Writing Tests</a></li><li class="navListItem"><a class="navItem" href="/detox/docs/8.1.3/Guide.RunningOnCI.html">Running On CI</a></li><li class="navListItem"><a class="navItem" href="/detox/docs/8.1.3/Guide.DebuggingInXcode.html">Debugging in Xcode During Detox Tests</a></li><li class="navListItem"><a class="navItem" href="/detox/docs/8.1.3/Guide.Mocking.html">Mocking</a></li><li class="navListItem"><a class="navItem" href="/detox/docs/8.1.3/Guide.Migration.html">Migration Guide</a></li><li class="navListItem"><a class="navItem" href="/detox/docs/8.1.3/Guide.Jest.html">Jest</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">API</h3><ul><li class="navListItem"><a class="navItem" href="/detox/docs/8.1.3/APIRef.Configuration.html">Configuration Options</a></li><li class="navListItem"><a class="navItem" href="/detox/docs/8.1.3/APIRef.DetoxObjectAPI.html">The `detox` Object</a></li><li class="navListItem"><a class="navItem" href="/detox/docs/8.1.3/APIRef.DeviceObjectAPI.html">The `device` Object</a></li><li class="navListItem"><a class="navItem" href="/detox/docs/8.1.3/APIRef.TestLifecycle.html">Test Lifecycle</a></li><li class="navListItem"><a class="navItem" href="/detox/docs/8.1.3/APIRef.Matchers.html">Matchers</a></li><li class="navListItem"><a class="navItem" href="/detox/docs/8.1.3/APIRef.ActionsOnElement.html">Actions on Element</a></li><li class="navListItem"><a class="navItem" href="/detox/docs/8.1.3/APIRef.Expect.html">Expect</a></li><li class="navListItem"><a class="navItem" href="/detox/docs/8.1.3/APIRef.waitFor.html">Manual Synchronization Using `waitFor`</a></li><li class="navListItem"><a class="navItem" href="/detox/docs/8.1.3/APIRef.MockingOpenFromURL.html">Mocking Open from URL (Deep Links)</a></li><li class="navListItem"><a class="navItem" href="/detox/docs/8.1.3/APIRef.MockingUserNotifications.html">Mocking User Notifications</a></li><li class="navListItem"><a class="navItem" href="/detox/docs/8.1.3/APIRef.DetoxCLI.html">Detox Command Line Tools (detox-cli)</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Troubleshooting</h3><ul><li class="navListItem"><a class="navItem" href="/detox/docs/8.1.3/Troubleshooting.Installation.html">Installation</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/detox/docs/8.1.3/Troubleshooting.RunningTests.html">Failing Tests</a></li><li class="navListItem"><a class="navItem" href="/detox/docs/8.1.3/Troubleshooting.Synchronization.html">Dealing With Synchronization Issues in Tests</a></li><li class="navListItem"><a class="navItem" href="/detox/docs/8.1.3/Troubleshooting.Flakiness.html">Dealing With Flakiness in Tests</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Under the Hood</h3><ul><li class="navListItem"><a class="navItem" href="/detox/docs/8.1.3/More.DesignPrinciples.html">Design Principles</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Contributing to Detox</h3><ul><li class="navListItem"><a class="navItem" href="/detox/docs/8.1.3/Guide.Contributing.html">Contributing</a></li><li class="navListItem"><a class="navItem" href="/detox/docs/8.1.3/More.Roadmap.html">Roadmap</a></li><li class="navListItem"><a class="navItem" href="/detox/docs/8.1.3/More.AndroidSupportStatus.html">Android Support - Status Page</a></li></ul></div></div></section></div><script>
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              const headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                if (event.target.tagName === 'A') {
+                  document.body.classList.remove('tocActive');
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">Failing Tests</h1></header><article><div><span><ul>
+<li><a href="#enable-trace-mode">Enable trace mode</a></li>
+<li><a href="#syntax-error-unxpected-token">Syntax Error: Unxpected Token</a></li>
+<li><a href="#cant-find-my-component-even-though-i-added-testid-to-its-props">Can't find my component even though I added testID to its props</a></li>
+<li><a href="#test-tries-to-find-my-component-before-its-created">Test tries to find my component before it's created</a></li>
+<li><a href="#cant-synchronize-the-test-with-my-app">Can't synchronize the test with my app</a></li>
+<li><a href="#detox-build-or-detox-test-are-failing-to-run">detox build or detox test are failing to run</a></li>
+<li><a href="#debug-view-hierarchy">Debug view hierarchy</a></li>
+<li><a href="#compare-to-a-working-setup">Compare to a working setup</a></li>
+<li><a href="#take-a-look-at-past-issues">Take a look at past issues</a></li>
+<li><a href="#how-to-open-a-new-issue">How to open a new issue</a></li>
+</ul>
+<p><br></p>
+<h3><a class="anchor" aria-hidden="true" id="enable-trace-mode"></a><a href="#enable-trace-mode" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Enable trace mode</h3>
+<p>It's a good idea to get as much information as possible about what's going on. We can enable trace mode during tests by running our tests with:</p>
+<pre><code class="hljs">detox <span class="hljs-keyword">test</span> --loglevel <span class="hljs-built_in">trace</span>
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="enable-debugging-of-synchronization-issues"></a><a href="#enable-debugging-of-synchronization-issues" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Enable debugging of synchronization issues</h3>
+<p>See <a href="https://github.com/wix/detox/blob/master/docs/Troubleshooting.Synchronization.md#identifying-which-synchronization-mechanism-causes-us-to-wait-too-much">here</a>.</p>
+<h3><a class="anchor" aria-hidden="true" id="syntax-error-unexpected-token"></a><a href="#syntax-error-unexpected-token" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Syntax Error: Unexpected Token</h3>
+<p><strong>Issue:</strong> Running tests immediately throws the following error:</p>
+<pre><code class="hljs css languages- js">beforeEach(async () =&gt; {
+                   ^
+SyntaxError: Unexpected token (
+    at Object.exports.runInThisContext (vm.js:76:16)
+    at Module._compile (module.js:545:28)
+    at loader (/Users/builduser/buildAgent/work/34eee2d16ef6c34b/node_modules/babel-register/lib/node.js:144:5)
+    at Object.require.extensions.(anonymous function) [as .js] (/Users/builduser/buildAgent/work/34eee2d16ef6c34b/node_modules/babel-register/lib/node.js:154:7)
+...
+child_process.js:531
+    throw err;
+</code></pre>
+<p><strong>Solution:</strong> This error means that your version of Node does not support <code>async-await</code> syntax. You should do the following:</p>
+<ol>
+<li>Update Node to a version <strong>8.3.0 or higher</strong>.</li>
+</ol>
+<p><br></p>
+<h3><a class="anchor" aria-hidden="true" id="can-t-find-my-component-even-though-i-added-testid-to-its-props"></a><a href="#can-t-find-my-component-even-though-i-added-testid-to-its-props" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Can't find my component even though I added testID to its props</h3>
+<p><strong>Issue:</strong> Detox fails to match a component even though it has a <code>testID</code>. Detox will throw the following error:</p>
+<pre><code class="hljs">Error: Cannot find UI Element.
+<span class="hljs-keyword">Exception</span> <span class="hljs-keyword">with</span> Assertion: {
+  <span class="hljs-string">"Assertion Criteria"</span> : "<span class="hljs-type">assertWithMatcher</span>: matcherForSufficientlyVisible(&gt;=<span class="hljs-number">0.750000</span>)<span class="hljs-string">",
+  "</span>Element Matcher<span class="hljs-string">" : "</span>(((respondsToSelector(accessibilityIdentifier) &amp;&amp; accessibilityID(<span class="hljs-symbol">'Welcome</span>')) &amp;&amp; !kindOfClass(<span class="hljs-symbol">'RCTScrollView</span>')) || (kindOfClass(<span class="hljs-symbol">'UIScrollView</span>') &amp;&amp; ((kindOfClass(<span class="hljs-symbol">'UIView</span>') || respondsToSelector(accessibilityContainer)) &amp;&amp; ancestorThatMatches(((respondsToSelector(accessibilityIdentifier) &amp;&amp; accessibilityID(<span class="hljs-symbol">'Welcome</span>')) &amp;&amp; kindOfClass(<span class="hljs-symbol">'RCTScrollView</span>'))))))<span class="hljs-string">",
+  "</span>Recovery Suggestion<span class="hljs-string">" : "</span>Check <span class="hljs-keyword">if</span> element exists <span class="hljs-keyword">in</span> the UI, modify assert criteria, <span class="hljs-keyword">or</span> adjust the matcher<span class="hljs-string">"
+}
+
+Error Trace: [
+  {
+    "</span>Description<span class="hljs-string">" : "</span>Interaction cannot continue because the desired element was <span class="hljs-keyword">not</span> found.<span class="hljs-string">",
+    "</span>Domain<span class="hljs-string">" : "</span>com.google.earlgrey.ElementInteractionErrorDomain<span class="hljs-string">",
+    "</span>Code<span class="hljs-string">" : "</span><span class="hljs-number">0</span><span class="hljs-string">",
+    "</span>File Name<span class="hljs-string">" : "</span>GREYElementInteraction.m<span class="hljs-string">",
+    "</span><span class="hljs-keyword">Function</span> <span class="hljs-title">Name"</span> : "-[GREYElementInteraction matchedElementsWithTimeout:error:]",
+    "Line" : "119"
+  }
+]
+</code></pre>
+<p><strong>Solution:</strong> React Native only supports the <code>testID</code> prop on the native built-in components. If you've created a custom composite component, you will have to support this prop yourself. You should probably propagate the <code>testID</code> prop to one of your rendered children (a built-in component):</p>
+<pre><code class="hljs css languages- jsx"><span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyCompositeComponent</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Component</span> </span>{
+  render() {
+    <span class="hljs-keyword">return</span> (
+      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">TouchableOpacity</span> <span class="hljs-attr">testID</span>=<span class="hljs-string">{this.props.testID}</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">View</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-name">Text</span>&gt;</span>Something something<span class="hljs-tag">&lt;/<span class="hljs-name">Text</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">View</span>&gt;</span>
+      <span class="hljs-tag">&lt;/<span class="hljs-name">TouchableOpacity</span>&gt;</span></span>
+    );
+  }
+}
+</code></pre>
+<p>Now, adding <code>testID</code> to your composite component should work:</p>
+<pre><code class="hljs css languages- jsx">render() {
+  <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">MyCompositeComponent</span> <span class="hljs-attr">testID</span>=<span class="hljs-string">'MyUniqueId123'</span> /&gt;</span>;
+}
+</span></code></pre>
+<p><br></p>
+<h3><a class="anchor" aria-hidden="true" id="test-tries-to-find-my-component-before-it-s-created"></a><a href="#test-tries-to-find-my-component-before-it-s-created" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Test tries to find my component before it's created</h3>
+<p><strong>Issue:</strong> Due to a synchronization issue, the test tries to perform an expectation and fails because it runs the expectation too soon. Consider this example:</p>
+<pre><code class="hljs css languages- js"><span class="hljs-keyword">await</span> element(by.text(<span class="hljs-string">'Login'</span>)).tap();
+<span class="hljs-keyword">await</span> expect(element(by.text(<span class="hljs-string">'Welcome'</span>))).toBeVisible();
+</code></pre>
+<p>In the test above, after tapping the Login button, the app performs several complex asynchronous operations until the Welcome message is displayed post-login. These can include querying a server, waiting for a response and then running an animated transition to the Welcome screen. Detox attempts to simplify your test code by synchronizing <em>automatically</em> with these asynchronous operations. What happens if for some reason the automatic synchronization doesn't work? As a result, Detox will not wait correctly until the Welcome screen appears and instead will continue immediately to the next line and try to run the expectation. Since the screen is not there yet, the test will fail.</p>
+<p><strong>Solution:</strong> When you suspect that automatic synchronization didn't work, you have a fail-safe by synchronizing manually with <code>waitFor</code>. Using <code>waitFor</code> will poll until the expectation is met. This isn't a recommended approach so please use it as a workaround and open and issue to resolve the synchronization issue.</p>
+<p>Full documentation about <code>waitFor</code> is available <a href="/docs/APIRef.waitFor.md">here</a>. This is what the fixed test would look like:</p>
+<pre><code class="hljs css languages- js"><span class="hljs-keyword">await</span> element(by.text(<span class="hljs-string">'Login'</span>)).tap();
+<span class="hljs-keyword">await</span> waitFor(element(by.text(<span class="hljs-string">'Welcome'</span>))).toBeVisible().withTimeout(<span class="hljs-number">2000</span>);
+</code></pre>
+<p><br></p>
+<h3><a class="anchor" aria-hidden="true" id="can-t-synchronize-the-test-with-my-app"></a><a href="#can-t-synchronize-the-test-with-my-app" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Can't synchronize the test with my app</h3>
+<p>If you suspect that the test is failing because Detox fails to synchronize the test steps with your app, take a look at this in-depth <a href="/docs/Troubleshooting.Synchronization.md">synchronization troubleshooting tutorial</a>.</p>
+<p><br></p>
+<h3><a class="anchor" aria-hidden="true" id="detox-build-or-detox-test-are-failing-to-run"></a><a href="#detox-build-or-detox-test-are-failing-to-run" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>detox build or detox test are failing to run</h3>
+<p><strong>Issue:</strong> Trying to run <code>detox build</code> or <code>detox test</code> throws the following error:</p>
+<pre><code class="hljs">Error: Cannot determine which configuration to use. use --configuration to choose one of the following:
+                  ios<span class="hljs-selector-class">.sim</span><span class="hljs-selector-class">.release</span>,ios<span class="hljs-selector-class">.sim</span><span class="hljs-selector-class">.debug</span>
+  at Detox<span class="hljs-selector-class">.initConfiguration</span> (/Users/rotemm/git/github/detox/detox/src/Detox<span class="hljs-selector-class">.js</span>:<span class="hljs-number">73</span>:<span class="hljs-number">13</span>)
+  at Detox<span class="hljs-selector-class">.init</span> (/Users/rotemm/git/github/detox/detox/src/Detox<span class="hljs-selector-class">.js</span>:<span class="hljs-number">49</span>:<span class="hljs-number">16</span>)
+  at process._tickCallback (internal/process/next_tick<span class="hljs-selector-class">.js</span>:<span class="hljs-number">103</span>:<span class="hljs-number">7</span>)
+</code></pre>
+<p><strong>Solution:</strong> You have configured more than one configuration in your package.json and detox cannot understand which one of them you want to run. The error will print a list of available configurations, choose one by using <code>--configuration</code> option.</p>
+<p>Run your commands with one of these configurations, for example:</p>
+<p><code>detox build --configuration ios.sim.debug</code><br>
+<code>detox test --configuration ios.sim.debug</code></p>
+<p><br></p>
+<h3><a class="anchor" aria-hidden="true" id="debug-view-hierarchy"></a><a href="#debug-view-hierarchy" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Debug view hierarchy</h3>
+<p><strong>Issue:</strong> I added the <code>testID</code> prop but I still can't find the view by id in my tests.</p>
+<p><strong>Solution:</strong> You can investigate the app's native view hierarchy, this might shed some light on how the app's view hierarchy is laid out.</p>
+<p>Do the following:</p>
+<ol>
+<li><p>Start a debuggable app (not a release build) in your simulator</p></li>
+<li><p>Open Xcode</p></li>
+<li><p>Attach Xcode to your app's process
+<img src="img/attach-to-process.jpg"></p></li>
+<li><p>Press the <code>Debug View Hierarchy</code> button
+<img src="img/debug-view-hierarchy.jpg"></p></li>
+<li><p>This will open the hierarchy viewer, and will show a breakdown of your app's native view hierarchy. Here you can browse through the views</p></li>
+<li><p>React Native testIDs are manifested as <em>accessibility indentifiers</em> in the native view hierarchy</p></li>
+</ol>
+<p>Let's see an example. We will find the following view in the native hierarchy:</p>
+<pre><code class="hljs css languages- jsx">&lt;TouchableOpacity onPress={this.onButtonPress.bind(this, 'ID Working')}&gt;
+  &lt;Text testID='UniqueId345' style={{color: 'blue', marginBottom: 20}}&gt;ID&lt;/Text&gt;
+&lt;/TouchableOpacity&gt;
+</code></pre>
+<p>This is the hierarchy viewer, pointing to the native view just mentioned:</p>
+<p><img src="img/hierarchy-viewer.jpg"></p>
+<p><br></p>
+<h3><a class="anchor" aria-hidden="true" id="compare-to-a-working-setup"></a><a href="#compare-to-a-working-setup" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Compare to a working setup</h3>
+<p>If you feel lost, try starting from a working example for sanity.</p>
+<p>There are multiple working examples included in this repo, such as <a href="/examples/demo-react-native">demo-react-native</a>.</p>
+<p>First, install, build and make sure the tests are indeed passing. If they are, try comparing this setup with what you have.</p>
+<p><br></p>
+<h3><a class="anchor" aria-hidden="true" id="take-a-look-at-past-issues"></a><a href="#take-a-look-at-past-issues" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Take a look at past issues</h3>
+<p>Before opening a new issue, search the <a href="https://github.com/wix/detox/issues?utf8=%E2%9C%93&amp;q=is%3Aissue">list of issues</a> on GitHub. There's a good chance somebody faced the same problem you are.</p>
+<p><br></p>
+<h3><a class="anchor" aria-hidden="true" id="how-to-open-a-new-issue"></a><a href="#how-to-open-a-new-issue" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>How to open a new issue</h3>
+<p>Before opening a new issue, please follow the entire troubleshooting guide and go over past issues.</p>
+<p>Include the following information in your issue to increase the chances of resolving it:</p>
+<ol>
+<li><p>Versions of all dependencies - iOS version you're working on, simulator model, React Native version, Detox version, etc</p></li>
+<li><p>The trace log of the test (see above)</p></li>
+<li><p>Source code of your test scenario</p></li>
+<li><p>If possible, try to extract a reproducable example of your issue in a git repo that you can share</p></li>
+</ol>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/detox/docs/8.1.3/Troubleshooting.Installation.html">← Installation</a><a class="docs-next button" href="/detox/docs/8.1.3/Troubleshooting.Synchronization.html">Dealing With Synchronization Issues in Tests →</a></div></div></div></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/detox/" class="nav-home"></a><div><h5>Docs</h5><a href="/detox/docs/en/Introduction.GettingStarted.html">Getting Started</a><a href="/detox/docs/en/Guide.Contributing.html">Contributing</a></div><div><h5>Community</h5><a href="/detox/en/users.html">User Showcase</a><a href="http://stackoverflow.com/questions/tagged/detox" target="_blank">Stack Overflow</a></div><div><h5>More</h5><a href="https://github.com/wix/detox">GitHub</a><a class="github-button" href="https://github.com/wix/detox" data-icon="octicon-star" data-count-href="/wix/detox/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><section class="copyright">Copyright © 2018 Wix.com Ltd.</section></footer></div></body></html>

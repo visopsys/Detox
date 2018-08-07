@@ -1,0 +1,77 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Mocking User Activity · Detox</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="Detox supports mocking user activity for iOS apps."/><meta name="docsearch:version" content="8.1.3"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Mocking User Activity · Detox"/><meta property="og:type" content="website"/><meta property="og:url" content="https://wix.github.io/detox/index.html"/><meta property="og:description" content="Detox supports mocking user activity for iOS apps."/><meta name="twitter:card" content="summary"/><link rel="shortcut icon" href="/detox/img/favicon.png"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><link rel="stylesheet" href="/detox/css/main.css"/></head><body class="sideNavVisible"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/detox/"><h2 class="headerTitle">Detox</h2></a><a href="/detox/versions.html"><h3>8.1.3</h3></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/detox/docs/8.1.3/Introduction.GettingStarted.html" target="_self">Getting Started</a></li><li class=""><a href="https://github.com/wix/detox" target="_self">GitHub</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">Mocking User Activity</h1></header><article><div><span><p>Detox supports mocking user activity for iOS apps.</p>
+<p>The user activity API is used to mock an external user activity state. The app normally uses this state to continue the activity inside the app. This API is also used for associated domains, Spotlight search handling and Siri intents.</p>
+<h3><a class="anchor" aria-hidden="true" id="mocking-app-launch-with-a-user-activity"></a><a href="#mocking-app-launch-with-a-user-activity" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Mocking App Launch with a User Activity</h3>
+<p>Using <code>lauchApp()</code> with custom params will trigger the mocking mechanism.</p>
+<pre><code class="hljs css languages- js"><span class="hljs-keyword">await</span> device.launchApp({<span class="hljs-attr">userActivity</span>: activity});
+</code></pre>
+<p><strong>Example:</strong></p>
+<pre><code class="hljs css languages- js">describe(<span class="hljs-string">'Background user activity'</span>, () =&gt; {
+    it(<span class="hljs-string">'Launch with user activity'</span>, <span class="hljs-keyword">async</span> () =&gt; {
+      <span class="hljs-keyword">await</span> device.launchApp({<span class="hljs-attr">userActivity</span>: activity})
+      <span class="hljs-keyword">await</span> expect(element(by.text(<span class="hljs-string">'From user activity'</span>))).toBeVisible();
+    });
+});
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="sending-user-activity-to-a-running-app"></a><a href="#sending-user-activity-to-a-running-app" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Sending User Activity to a Running App</h3>
+<p>Use the <code>sendUserActivity()</code> method.</p>
+<pre><code class="hljs css languages- js"><span class="hljs-keyword">await</span> device.sendUserActivity(activity)
+</code></pre>
+<p><strong>Example:</strong></p>
+<pre><code class="hljs css languages- js"> 
+describe(<span class="hljs-string">'Foreground user activity'</span>, () =&gt; {
+
+beforeEach(<span class="hljs-keyword">async</span> () =&gt; {
+  <span class="hljs-keyword">await</span> device.relaunchApp();
+});
+
+it(<span class="hljs-string">'User activity from inside the app'</span>, <span class="hljs-keyword">async</span> () =&gt; {
+  <span class="hljs-keyword">await</span> device.sendUserActivity(activity);
+  <span class="hljs-keyword">await</span> expect(element(by.text(<span class="hljs-string">'From user activity'</span>))).toBeVisible();
+ });
+});
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="user-activity-json-format"></a><a href="#user-activity-json-format" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>User Activity JSON Format</h2>
+<p>User activities are passed as JSON objects to Detox, which then parses them and creates native objects representing the passed information.</p>
+<p>The JSON object passed to Detox needs to provide some required data, but can also provide additional, optional data.</p>
+<!--- Use http://www.tablesgenerator.com/markdown_tables to edit these tables. --->
+<table>
+<thead>
+<tr><th>Key</th><th>Required</th><th>Value Type</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>activityType</code></td><td>Yes</td><td>String</td><td>The activity type. Either a custom user string or a predefined constant as provided by Detox. See the Activity Types section below.</td></tr>
+<tr><td><code>webpageURL</code></td><td>No</td><td>String</td><td>Used when simulating an associated domain link opening. This is the URL that the user browsed to.</td></tr>
+<tr><td><code>referrerURL</code></td><td>No</td><td>String</td><td>Used when simulating an associated domain link opening. This is the URL that the user browsed from.</td></tr>
+<tr><td><code>userInfo</code></td><td>No</td><td>Object</td><td>An additional key-value pair storage, used for general purpose data passing to the app.</td></tr>
+</tbody>
+</table>
+<h3><a class="anchor" aria-hidden="true" id="activity-types"></a><a href="#activity-types" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Activity Types</h3>
+<p>Activities can be both developer-generated user activity state, such as actions from another system—another iOS device, macOS, Safari, etc., and system-generated user activities, such as user browed an associated domain, Spotlight search tapped, Siri intent activity, etc.,  where the app should handle such an activity.</p>
+<p>Detox supports mocking both types.</p>
+<p>For developer-generated user activities, use a custom <code>activityType</code> that is expected by the application.</p>
+<p>For system-generated user activities, use set the <code>activityType</code> to a predefined constant in Detox, like so:</p>
+<pre><code class="hljs css languages- js"><span class="hljs-keyword">const</span> DetoxConstants = <span class="hljs-built_in">require</span>(<span class="hljs-string">'detox'</span>).DetoxConstants;
+
+<span class="hljs-keyword">const</span> userActivityBrowsingWeb = {
+  <span class="hljs-string">"activityType"</span>: DetoxConstants.userActivityTypes.browsingWeb,
+  <span class="hljs-string">"webpageURL"</span>: <span class="hljs-string">"https://my.deeplink.dtx"</span>,
+  <span class="hljs-string">"referrerURL"</span>: <span class="hljs-string">"https://google.com/"</span>
+};
+</code></pre>
+<p>Currently supported system-generated activity types:</p>
+<ul>
+<li>DetoxConstants.userActivityTypes.browsingWeb - Used for associated domains (deep links)</li>
+<li>DetoxConstants.userActivityTypes.searchableItem - Used for Spotlight search resutls</li>
+</ul>
+<h4><a class="anchor" aria-hidden="true" id="spotlight-search-results"></a><a href="#spotlight-search-results" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Spotlight Search Results</h4>
+<p>In addition to <code>DetoxConstants.userActivityTypes.searchableItem</code>, Detox also provides an additional constant, used to provide the item identifier, which was selected in Spotlight. The app uses this identifier to display the item on screen.</p>
+<p>An example on a Spotlight search user activity:</p>
+<pre><code class="hljs css languages- js"><span class="hljs-keyword">const</span> DetoxConstants = <span class="hljs-built_in">require</span>(<span class="hljs-string">'detox'</span>).DetoxConstants;
+
+<span class="hljs-keyword">let</span> userActivitySearchableItem = {
+  <span class="hljs-string">"activityType"</span>: DetoxConstants.userActivityTypes.searchableItem,
+  <span class="hljs-string">"userInfo"</span>: {<span class="hljs-string">"customKey"</span>: <span class="hljs-string">"value"</span>}
+};
+userActivitySearchableItem.userInfo[DetoxConstants.searchableItemActivityIdentifier] = <span class="hljs-string">"com.test.itemId"</span>
+</code></pre>
+</span></div></article></div><div class="docs-prevnext"></div></div></div></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/detox/" class="nav-home"></a><div><h5>Docs</h5><a href="/detox/docs/en/Introduction.GettingStarted.html">Getting Started</a><a href="/detox/docs/en/Guide.Contributing.html">Contributing</a></div><div><h5>Community</h5><a href="/detox/en/users.html">User Showcase</a><a href="http://stackoverflow.com/questions/tagged/detox" target="_blank">Stack Overflow</a></div><div><h5>More</h5><a href="https://github.com/wix/detox">GitHub</a><a class="github-button" href="https://github.com/wix/detox" data-icon="octicon-star" data-count-href="/wix/detox/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><section class="copyright">Copyright © 2018 Wix.com Ltd.</section></footer></div></body></html>

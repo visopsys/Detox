@@ -1,0 +1,227 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Migration Guide · Detox</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="We are improving detox API as we go along, sometimes these changes require us to break the API in order for it to make more sense. These migration guides refer to breaking changes."/><meta name="docsearch:version" content="8.1.3"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Migration Guide · Detox"/><meta property="og:type" content="website"/><meta property="og:url" content="https://wix.github.io/detox/index.html"/><meta property="og:description" content="We are improving detox API as we go along, sometimes these changes require us to break the API in order for it to make more sense. These migration guides refer to breaking changes."/><meta name="twitter:card" content="summary"/><link rel="shortcut icon" href="/detox/img/favicon.png"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><link rel="stylesheet" href="/detox/css/main.css"/></head><body class="sideNavVisible"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/detox/"><h2 class="headerTitle">Detox</h2></a><a href="/detox/versions.html"><h3>8.1.3</h3></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class="siteNavGroupActive"><a href="/detox/docs/8.1.3/Introduction.GettingStarted.html" target="_self">Getting Started</a></li><li class=""><a href="https://github.com/wix/detox" target="_self">GitHub</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><i></i></div><h2><i>›</i><span>Guide</span></h2></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">Introduction</h3><ul><li class="navListItem"><a class="navItem" href="/detox/docs/8.1.3/Introduction.GettingStarted.html">Getting Started</a></li><li class="navListItem"><a class="navItem" href="/detox/docs/8.1.3/Introduction.WritingFirstTest.html">Writing Your First Test</a></li><li class="navListItem"><a class="navItem" href="/detox/docs/8.1.3/Introduction.Android.html">Detox for Android</a></li><li class="navListItem"><a class="navItem" href="/detox/docs/8.1.3/Introduction.HowDetoxWorks.html">How Detox Works</a></li><li class="navListItem"><a class="navItem" href="/detox/docs/8.1.3/Introduction.Workflows.html">Workflows</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Guide</h3><ul><li class="navListItem"><a class="navItem" href="/detox/docs/8.1.3/Guide.RunningLocally.html">Running Tests Locally</a></li><li class="navListItem"><a class="navItem" href="/detox/docs/8.1.3/Guide.DevelopingWhileWritingTests.html">Developing Your App While Writing Tests</a></li><li class="navListItem"><a class="navItem" href="/detox/docs/8.1.3/Guide.RunningOnCI.html">Running On CI</a></li><li class="navListItem"><a class="navItem" href="/detox/docs/8.1.3/Guide.DebuggingInXcode.html">Debugging in Xcode During Detox Tests</a></li><li class="navListItem"><a class="navItem" href="/detox/docs/8.1.3/Guide.Mocking.html">Mocking</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/detox/docs/8.1.3/Guide.Migration.html">Migration Guide</a></li><li class="navListItem"><a class="navItem" href="/detox/docs/8.1.3/Guide.Jest.html">Jest</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">API</h3><ul><li class="navListItem"><a class="navItem" href="/detox/docs/8.1.3/APIRef.Configuration.html">Configuration Options</a></li><li class="navListItem"><a class="navItem" href="/detox/docs/8.1.3/APIRef.DetoxObjectAPI.html">The `detox` Object</a></li><li class="navListItem"><a class="navItem" href="/detox/docs/8.1.3/APIRef.DeviceObjectAPI.html">The `device` Object</a></li><li class="navListItem"><a class="navItem" href="/detox/docs/8.1.3/APIRef.TestLifecycle.html">Test Lifecycle</a></li><li class="navListItem"><a class="navItem" href="/detox/docs/8.1.3/APIRef.Matchers.html">Matchers</a></li><li class="navListItem"><a class="navItem" href="/detox/docs/8.1.3/APIRef.ActionsOnElement.html">Actions on Element</a></li><li class="navListItem"><a class="navItem" href="/detox/docs/8.1.3/APIRef.Expect.html">Expect</a></li><li class="navListItem"><a class="navItem" href="/detox/docs/8.1.3/APIRef.waitFor.html">Manual Synchronization Using `waitFor`</a></li><li class="navListItem"><a class="navItem" href="/detox/docs/8.1.3/APIRef.MockingOpenFromURL.html">Mocking Open from URL (Deep Links)</a></li><li class="navListItem"><a class="navItem" href="/detox/docs/8.1.3/APIRef.MockingUserNotifications.html">Mocking User Notifications</a></li><li class="navListItem"><a class="navItem" href="/detox/docs/8.1.3/APIRef.DetoxCLI.html">Detox Command Line Tools (detox-cli)</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Troubleshooting</h3><ul><li class="navListItem"><a class="navItem" href="/detox/docs/8.1.3/Troubleshooting.Installation.html">Installation</a></li><li class="navListItem"><a class="navItem" href="/detox/docs/8.1.3/Troubleshooting.RunningTests.html">Failing Tests</a></li><li class="navListItem"><a class="navItem" href="/detox/docs/8.1.3/Troubleshooting.Synchronization.html">Dealing With Synchronization Issues in Tests</a></li><li class="navListItem"><a class="navItem" href="/detox/docs/8.1.3/Troubleshooting.Flakiness.html">Dealing With Flakiness in Tests</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Under the Hood</h3><ul><li class="navListItem"><a class="navItem" href="/detox/docs/8.1.3/More.DesignPrinciples.html">Design Principles</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Contributing to Detox</h3><ul><li class="navListItem"><a class="navItem" href="/detox/docs/8.1.3/Guide.Contributing.html">Contributing</a></li><li class="navListItem"><a class="navItem" href="/detox/docs/8.1.3/More.Roadmap.html">Roadmap</a></li><li class="navListItem"><a class="navItem" href="/detox/docs/8.1.3/More.AndroidSupportStatus.html">Android Support - Status Page</a></li></ul></div></div></section></div><script>
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              const headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                if (event.target.tagName === 'A') {
+                  document.body.classList.remove('tocActive');
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">Migration Guide</h1></header><article><div><span><p>We are improving detox API as we go along, sometimes these changes require us to break the API in order for it to make more sense. These migration guides refer to breaking changes.</p>
+<h2><a class="anchor" aria-hidden="true" id="migrating-from-detox-7xx-to-8xx"></a><a href="#migrating-from-detox-7xx-to-8xx" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Migrating from Detox 7.x.x to 8.x.x</h2>
+<p>Detox 8.x.x brings support for test artifacts (videos, screenshot, logs), and to learn more about it you can refer to <a href="/detox/docs/8.1.3/APIRef.Artifacts.html">Artifacts documentation</a> and to <a href="/detox/docs/8.1.3/APIRef.DetoxCLI.html">Detox CLI documentation</a>.</p>
+<h4><a class="anchor" aria-hidden="true" id="changes-to-e2e-initjs"></a><a href="#changes-to-e2e-initjs" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Changes to <code>e2e/init.js</code></h4>
+<p>In order for Detox to be able to create artifacts, <code>detox.beforeEach(testSummary)</code> and <code>detox.afterEach(testSummary)</code> must be called with a current test summary object (test title, full test name, test status).</p>
+<p>Detox 8 introduces adapters for both Mocha and Jest, wrapping the original <code>detox.beforeEach(testSummary)</code> and <code>detox.afterEach(testSummary)</code> functions, for easier integration.</p>
+<p>you are encouraged to reuse the examples of <code>./e2e/init.js</code> for  <a href="/examples/demo-react-native/e2e/init.js">mocha</a> and <a href="/examples/demo-react-native-jest/e2e/init.js">jest</a>. The gist is brought in the following sections:</p>
+<h5><a class="anchor" aria-hidden="true" id="mocha"></a><a href="#mocha" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><em>Mocha</em></h5>
+<pre><code class="hljs css languages- js"><span class="hljs-keyword">const</span> detox = <span class="hljs-built_in">require</span>(<span class="hljs-string">'detox'</span>);
+<span class="hljs-keyword">const</span> config = <span class="hljs-built_in">require</span>(<span class="hljs-string">'../package.json'</span>).detox;
+<span class="hljs-keyword">const</span> adapter = <span class="hljs-built_in">require</span>(<span class="hljs-string">'detox/runners/mocha/adapter'</span>);
+
+before(<span class="hljs-keyword">async</span> () =&gt; {
+  <span class="hljs-keyword">await</span> detox.init(config);
+});
+
+beforeEach(<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">await</span> adapter.beforeEach(<span class="hljs-keyword">this</span>);
+});
+
+afterEach(<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">await</span> adapter.afterEach(<span class="hljs-keyword">this</span>);
+});
+
+after(<span class="hljs-keyword">async</span> () =&gt; {
+  <span class="hljs-keyword">await</span> detox.cleanup();
+});
+</code></pre>
+<blockquote>
+<p><em>NOTICE:</em>
+Make sure you use ES5 functions in <code>beforeEach</code> and <code>afterEach</code>. <code>this</code> referes to mocha's test object, using arrow functions will result with failure to to acquire a correct <strong><code>this</code></strong> inside the adapter.</p>
+</blockquote>
+<pre><code class="hljs css languages- js"><span class="hljs-comment">// ✗ INCORRECT</span>
+
+beforeEach(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> { <span class="hljs-comment">/* ... your content ... */</span> }); <span class="hljs-comment">// won't work</span>
+afterEach(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> { <span class="hljs-comment">/* ... your content ... */</span> }); <span class="hljs-comment">// won't work</span>
+
+<span class="hljs-comment">// CORRECT</span>
+
+beforeEach(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"> <span class="hljs-regexp">/* ... your content ... */</span> </span>) </span>{});
+afterEach(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"> <span class="hljs-regexp">/* ... your content ... */</span> </span>) </span>{});
+</code></pre>
+<h5><a class="anchor" aria-hidden="true" id="jest"></a><a href="#jest" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><em>Jest</em></h5>
+<pre><code class="hljs css languages- js"><span class="hljs-keyword">const</span> detox = <span class="hljs-built_in">require</span>(<span class="hljs-string">'detox'</span>);
+<span class="hljs-keyword">const</span> config = <span class="hljs-built_in">require</span>(<span class="hljs-string">'../package.json'</span>).detox;
+<span class="hljs-keyword">const</span> adapter = <span class="hljs-built_in">require</span>(<span class="hljs-string">'detox/runners/jest/adapter'</span>);
+
+jest.setTimeout(<span class="hljs-number">120000</span>);
+jasmine.getEnv().addReporter(adapter); <span class="hljs-comment">// don't forget this line</span>
+
+beforeAll(<span class="hljs-keyword">async</span> () =&gt; {
+  <span class="hljs-keyword">await</span> detox.init(config);
+});
+
+beforeEach(<span class="hljs-keyword">async</span> () =&gt; {
+  <span class="hljs-keyword">await</span> adapter.beforeEach();
+});
+
+afterAll(<span class="hljs-keyword">async</span> () =&gt; {
+  <span class="hljs-keyword">await</span> adapter.afterAll();
+  <span class="hljs-keyword">await</span> detox.cleanup();
+});
+</code></pre>
+<blockquote>
+<p><em>NOTICE:</em>
+Make sure to register the adapter as a Jasmine reporter in <code>init.js</code> like this:</p>
+</blockquote>
+<pre><code class="hljs css languages- js">jasmine.getEnv().addReporter(adapter);
+</code></pre>
+<ul>
+<li>Jest adapter requires a hook to <code>afterAll</code>:</li>
+</ul>
+<pre><code class="hljs css languages- js">afterAll(<span class="hljs-keyword">async</span> () =&gt; {
+  <span class="hljs-keyword">await</span> adapter.afterAll();
+  <span class="hljs-keyword">await</span> detox.cleanup();
+});
+</code></pre>
+<h5><a class="anchor" aria-hidden="true" id="note-regarding-detoxbeforeeach-and-detoxaftereach"></a><a href="#note-regarding-detoxbeforeeach-and-detoxaftereach" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Note regarding <code>detox.beforeEach</code> and <code>detox.afterEach</code></h5>
+<p>API of these methods is subject to change in future versions due to complexity behind composing test summary objects (as in the case with Jest test runner). If you have reasons to make direct calls to <code>detox.beforeEach</code> and <code>detox.afterEach</code> (e.g. you're adding support for another test runner), please refer to <a href="/detox/docs/8.1.3/APIRef.DetoxObjectAPI.html">detox object documentation</a>.</p>
+<h4><a class="anchor" aria-hidden="true" id="changes-to-detox-test-cli"></a><a href="#changes-to-detox-test-cli" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Changes to <code>detox test</code> CLI</h4>
+<p>The <code>--artifact-location</code> argument became optional for <code>detox test</code> in the version 8.x.x.
+By default it dynamically creates <code>./artifacts/{configuration}.{timestamp}</code> directory in the project folder as soon as it has to save a recorded artifact.</p>
+<p>Previously, to enable log recording you just had to specify <code>--artifact-location</code> arg. Currently, you need to tell that explicitly via a new CLI flag: <code>--record-logs all</code> or <code>--record-logs failing</code>.</p>
+<p>Notice that <code>--artifact-location</code> became sensitive to whether you end your directory path with a slash or not. It has the next convention:</p>
+<ul>
+<li>If you want to create automatically a subdirectory with timestamp and configuration name (to avoid file overwrites upon consquent re-runs), specify a path to directory that <em>does not end</em> with a slash.</li>
+<li>Otherwise, if you want to put artifacts straight to the specified directory (in a case where you make a single run only, e.g. on CI), <em>add a slash</em> to the end.</li>
+</ul>
+<p>For more information see <a href="/detox/docs/8.1.3/APIRef.DetoxCLI.html">CLI documentation</a>.</p>
+<h2><a class="anchor" aria-hidden="true" id="migrating-from-detox-4xx-to-5xx"></a><a href="#migrating-from-detox-4xx-to-5xx" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Migrating from Detox 4.x.x to 5.x.x</h2>
+<p>The clearest example for for the 4-&gt;5 API changes is the change log of detox's own test suite.
+Check <a href="https://github.com/wix/detox/commit/c636e2281d83d07fe0b479681c1a8a6b809823ff#diff-bf5e338e4f0bb49210688c7691dc8589">detox test change log</a> for a real life example.</p>
+<p>###Version 5.x.x breaks detox's API in 4 different places</p>
+<h4><a class="anchor" aria-hidden="true" id="1-promise-based-flow"></a><a href="#1-promise-based-flow" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>1. Promise based flow</h4>
+<p>All of the API calls are now promise based, and must use either promise chains or async-await.<br></p>
+<p>Here's an example of async call to tap an element</p>
+<pre><code class="hljs css languages- js"><span class="hljs-comment">// &lt;=4.x.x</span>
+beforeEach(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+  element(by.text(<span class="hljs-string">'Sanity'</span>)).tap();
+});         
+
+</code></pre>
+<pre><code class="hljs css languages- js"><span class="hljs-comment">// 5.x.x</span>
+beforeEach(<span class="hljs-keyword">async</span> () =&gt; {
+  <span class="hljs-keyword">await</span> element(by.text(<span class="hljs-string">'Sanity'</span>)).tap();
+});
+</code></pre>
+<p>Same thing with expectations</p>
+<pre><code class="hljs css languages- js"><span class="hljs-comment">// &lt;=4.x.x</span>
+it(<span class="hljs-string">'should have welcome screen'</span>, () =&gt; {
+  expect(element(by.text(<span class="hljs-string">'Welcome'</span>))).toBeVisible();
+  expect(element(by.text(<span class="hljs-string">'Say Hello'</span>))).toBeVisible(); 
+  expect(element(by.text(<span class="hljs-string">'Say World'</span>))).toBeVisible();
+};
+</code></pre>
+<pre><code class="hljs css languages- js"><span class="hljs-comment">// 5.x.x</span>
+it(<span class="hljs-string">'should have welcome screen'</span>, <span class="hljs-keyword">async</span> () =&gt; {
+  <span class="hljs-keyword">await</span> expect(element(by.text(<span class="hljs-string">'Welcome'</span>))).toBeVisible();
+  <span class="hljs-keyword">await</span> expect(element(by.text(<span class="hljs-string">'Say Hello'</span>))).toBeVisible();
+  <span class="hljs-keyword">await</span> expect(element(by.text(<span class="hljs-string">'Say World'</span>))).toBeVisible();
+});
+</code></pre>
+<h4><a class="anchor" aria-hidden="true" id="2-detox-object-has-a-leaner-api"></a><a href="#2-detox-object-has-a-leaner-api" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>2. <code>detox</code> object has a leaner API</h4>
+<p>Configure and init detox with just one promise based function.</p>
+<pre><code class="hljs css languages- js"><span class="hljs-comment">// &lt;=4.x.x</span>
+detox.config(config);
+detox.start(done);
+</code></pre>
+<pre><code class="hljs css languages- js"><span class="hljs-comment">// 5.x.x</span>
+<span class="hljs-keyword">await</span> detox.init(config);
+</code></pre>
+<p>No need to wait for test result after each test, you can safely remove <code>detox.waitForTestResult</code></p>
+<pre><code class="hljs css languages- js"><span class="hljs-comment">// &lt;=4.x.x</span>
+afterEach(<span class="hljs-function">(<span class="hljs-params">done</span>) =&gt;</span> {
+  detox.waitForTestResult(done);
+});
+</code></pre>
+<p>cleanup is promise based</p>
+<pre><code class="hljs css languages- js"><span class="hljs-comment">// &lt;=4.x.x</span>
+detox.cleanup(done);
+</code></pre>
+<pre><code class="hljs css languages- js"><span class="hljs-comment">// 5.x.x</span>
+<span class="hljs-keyword">await</span> detox.cleanup();
+</code></pre>
+<h4><a class="anchor" aria-hidden="true" id="3-simulator-is-now-device"></a><a href="#3-simulator-is-now-device" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>3. <code>simulator</code> is now <code>device</code></h4>
+<p>The global object <code>simulator</code> is now <code>device</code>, this change makes sense when thinking about multi-platform tests (Android support).
+Along with the new promise based API, this is how we now control the attached device</p>
+<table>
+<thead>
+<tr><th>&lt;=4.x.x</th><th>5.x.x</th></tr>
+</thead>
+<tbody>
+<tr><td><code>simulator.reloadReactNativeApp(done)</code></td><td><code>await device.reloadReactNative()</code></td></tr>
+<tr><td><code>simulator.relaunchApp(done)</code></td><td><code>await device.relaunchApp()</code></td></tr>
+<tr><td><code>simulator.sendUserNotification(params, done)</code></td><td><code>await device.sendUserNotification(params)</code></td></tr>
+<tr><td><code>simulator.openURL(url)</code></td><td><code>await device.openURL(url)</code></td></tr>
+</tbody>
+</table>
+<h4><a class="anchor" aria-hidden="true" id="4-detox-config-scheme"></a><a href="#4-detox-config-scheme" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>4. Detox config scheme</h4>
+<p>In order for our API to support multiple platforms and devices, and to be able to provide a valid command line tool, we changed the the detox configuration scheme (in package.json)</p>
+<p>Previous config looked like this:</p>
+<pre><code class="hljs css languages- json">//&lt;=4.x.x
+  "detox": {
+    "session": {
+      "server": "ws://localhost:8099",
+      "sessionId": "test"
+    },
+    "ios-simulator": {
+        "app": "ios/build/Build/Products/Release-iphonesimulator/example.app",
+        "device": "iPhone 7 Plus"
+    }
+  }
+</code></pre>
+<p>The new configuration holds a dictionary of <code>configurations</code>.</p>
+<ol>
+<li>Each configuration must state <code>type</code> - currently only simulator is supported</li>
+<li><code>app</code> is now <code>binaryPath</code></li>
+<li><code>build</code> - <strong>[optional]</strong> build command (either <code>xcodebuild</code>, <code>react-native run-ios</code>, etc...), will be later available through detox CLI tool.</li>
+<li><strong>session object is not mandatory anymore</strong>, if is not provided detox will handle server creation by itself.</li>
+</ol>
+<pre><code class="hljs css languages- json">//5.x.x
+  "detox": {
+    "configurations": {
+      "ios.sim.release": {
+        "binaryPath": "ios/build/Build/Products/Release-iphonesimulator/example.app",
+        "build": "xcodebuild -project ios/example.xcodeproj -scheme example -configuration Release -sdk iphonesimulator -derivedDataPath ios/build",
+        "type": "ios.simulator",
+        "name": "iPhone 7 Plus"
+      }
+    } 
+  }
+</code></pre>
+<h4><a class="anchor" aria-hidden="true" id="31-start-using-detox-cli"></a><a href="#31-start-using-detox-cli" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>3.1 Start using detox-cli</h4>
+<p>You will now be able to run builds and tests from your command line <code>detox build</code> and <code>detox test</code>, read more about CLI tools <a href="">here</a></p>
+<h2><a class="anchor" aria-hidden="true" id="migrating-from-detox-3xx-to-4xx"></a><a href="#migrating-from-detox-3xx-to-4xx" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Migrating from Detox 3.x.x to 4.x.x</h2>
+<p>If you have integrated with detox in version 3.x.x, you will need to clean your project from previously generated targets.</p>
+<ul>
+<li><p>Use the provided <code>cleanup_4.0.rb</code> to remove unneeded changes made with Detox 4.x.x.</p>
+<pre><code class="hljs css languages- sh">ruby node_modules/detox/scripts/cleanup_4.0.rb
+</code></pre></li>
+<li><p>The script will delete previously configured project targets <code>*_Detox</code>. The targets are not used by detox anymore since the framework is now injected at runtime and doesn't need to be linked in a different target.</p></li>
+<li><p>Make sure to add changes performed by running this script to version control.</p></li>
+</ul>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/detox/docs/8.1.3/Guide.Mocking.html">← Mocking</a><a class="docs-next button" href="/detox/docs/8.1.3/Guide.Jest.html">Jest →</a></div></div></div></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/detox/" class="nav-home"></a><div><h5>Docs</h5><a href="/detox/docs/en/Introduction.GettingStarted.html">Getting Started</a><a href="/detox/docs/en/Guide.Contributing.html">Contributing</a></div><div><h5>Community</h5><a href="/detox/en/users.html">User Showcase</a><a href="http://stackoverflow.com/questions/tagged/detox" target="_blank">Stack Overflow</a></div><div><h5>More</h5><a href="https://github.com/wix/detox">GitHub</a><a class="github-button" href="https://github.com/wix/detox" data-icon="octicon-star" data-count-href="/wix/detox/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><section class="copyright">Copyright © 2018 Wix.com Ltd.</section></footer></div></body></html>
