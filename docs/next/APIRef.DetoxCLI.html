@@ -77,6 +77,7 @@
 <tr><td>-p, --platform [ios/android]</td><td>Run platform specific tests. Runs tests with invert grep on <code>:platform:</code>, e.g test with substring <code>:ios:</code> in its name will not run when passing <code>--platform android</code></td></tr>
 <tr><td>-H, --headless</td><td>[Android Only] Launch Emulator in headless mode. Useful when running on CI.</td></tr>
 <tr><td>-w, --workers</td><td>[iOS Only] Specifies number of workers the test runner should spawn, requires a test runner with parallel execution support (Detox CLI currently supports Jest)</td></tr>
+<tr><td>-n, --device-name [name]</td><td>Override the device name specified in a configuration. Useful for running a single build configuration on multiple devices.</td></tr>
 </tbody>
 </table>
 <blockquote>
