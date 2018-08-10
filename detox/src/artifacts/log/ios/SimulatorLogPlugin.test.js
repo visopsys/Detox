@@ -1,15 +1,17 @@
 jest.mock('../../../utils/argparse');
-jest.mock('../../../utils/logger');
+// jest.mock('../../../utils/logger');
 
 const _ = require('lodash');
 const tempfile = require('tempfile');
 const fs = require('fs-extra');
+const exec = require('../../../utils/exec');
 const path = require('path');
 
 describe('SimulatorLogPlugin', () => {
   async function majorWorkflow() {
     let argparse = null;
     let fakePathBuilder = null;
+    let fakeSources = null;
     let fakeAppleSimUtils = null;
     let artifactsManager = null;
     let SimulatorLogPlugin = null;
@@ -40,14 +42,20 @@ describe('SimulatorLogPlugin', () => {
         }),
       };
 
-      fakeAppleSimUtils = {
-        logs: Object.freeze({
-          stdout: tempfile('.stdout.log'),
-          stderr: tempfile('.stderr.log'),
-        }),
+      fakeSources = {
+        stdin: tempfile('.stdin.log'),
+      };
 
-        getLogsPaths() {
-          return this.logs;
+      fakeAppleSimUtils = {
+        logStream(udid, { stdout, stderr }) {
+          const handle = fs.openSync(fakeSources.stdin, 'r');
+          const process = exec.spawnAndLog('cat', [], {
+            stdio: [handle, stdout, stderr],
+            silent: true,
+          });
+
+          process.catch((e) => e).then(() => fs.close(handle));
+          return process;
         }
       };
 
@@ -61,17 +69,11 @@ describe('SimulatorLogPlugin', () => {
     }
 
     async function logToDeviceLogs(line) {
-      await Promise.all([
-        fs.appendFile(fakeAppleSimUtils.logs.stdout, line + '\n'),
-        fs.appendFile(fakeAppleSimUtils.logs.stderr, line + '\n'),
-      ]);
+      return fs.appendFile(fakeSources.stdin, line + '\n');
     }
 
     async function deleteDeviceLogs() {
-      await Promise.all([
-        fs.remove(fakeAppleSimUtils.logs.stdout),
-        fs.remove(fakeAppleSimUtils.logs.stderr),
-      ]);
+      return fs.remove(fakeSources.stdin);
     }
 
     await init();
@@ -110,11 +112,10 @@ describe('SimulatorLogPlugin', () => {
       const contents = (await fs.readFile(artifact, 'utf8')).split('\n');
       const extension = path.basename(artifact).split('.').slice(1).join('.');
 
-      result[`stdout.${extension}`] = contents.filter(s => s.indexOf('stdout: ') === 0);
-      result[`stderr.${extension}`] = contents.filter(s => s.indexOf('stderr: ') === 0);
+      result[extension] = contents;
     }
 
-    const allCreatedFiles = [...Object.values(fakeAppleSimUtils.logs), ...createdArtifacts];
+    const allCreatedFiles = [...Object.values(fakeSources), ...createdArtifacts];
     await Promise.all(allCreatedFiles.map(filename => fs.remove(filename)));
 
     return result;

@@ -353,12 +353,6 @@ describe('AppleSimUtils', () => {
     });
   });
 
-  describe('getLogsPaths', () => {
-    it('returns correct paths', () => {
-      expect(uut.getLogsPaths('123')).toMatchSnapshot();
-    });
-  });
-
   describe('terminate', () => {
     it('calls xcrun simctl', async () => {
       await uut.terminate('theUdid', 'thebundleId');

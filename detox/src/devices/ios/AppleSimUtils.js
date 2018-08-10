@@ -78,7 +78,7 @@ class AppleSimUtils {
 
   async isBooted(udid) {
     const device = await this.findDeviceByUDID(udid);
-    return (_.isEqual(device.state, 'Booted') || _.isEqual(device.state, 'Booting'));
+    return device.state === 'Booted' || device.state === 'Booting';
   }
 
   async deviceTypeAndNewestRuntimeFor(name) {
@@ -123,23 +123,14 @@ class AppleSimUtils {
 
   async launch(udid, bundleId, launchArgs) {
     const frameworkPath = await environment.getFrameworkPath();
-    const logsInfo = new LogsInfo(udid);
     const args = this._joinLaunchArgs(launchArgs);
 
-    const result = await this._launchMagically(frameworkPath, logsInfo, udid, bundleId, args);
+    const result = await this._launchMagically(frameworkPath, udid, bundleId, args);
     return this._parseLaunchId(result);
   }
 
   async sendToHome(udid) {
     await this._execSimctl({ cmd: `launch ${udid} com.apple.springboard`, retries: 10 });
-  }
-
-  getLogsPaths(udid) {
-    const logsInfo = new LogsInfo(udid);
-    return {
-      stdout: logsInfo.absStdout,
-      stderr: logsInfo.absStderr
-    }
   }
 
   async terminate(udid, bundleId) {
@@ -186,6 +177,22 @@ class AppleSimUtils {
       throw new Error(`Can't read Xcode version, got: '${stdout}'`);
     }
     return majorVersion;
+  }
+
+  logStream(udid, { stdout, stderr, pid, level = 'default' }) {
+    const args = ['simctl', 'spawn', udid, 'log', 'stream', '--level', level];
+
+    if (pid > 0) {
+      args.push('--process');
+      args.push(String(pid));
+    }
+
+    const promise = exec.spawnAndLog('/usr/bin/xcrun', args, {
+      stdio: ['ignore', stdout, stderr],
+      silent: true,
+    });
+
+    return promise;
   }
 
   async takeScreenshot(udid, destination) {
@@ -243,6 +250,7 @@ class AppleSimUtils {
     const cmd = "/bin/bash -c '`xcode-select -p`/Applications/Simulator.app/Contents/MacOS/Simulator " +
       `--args -CurrentDeviceUDID ${udid} -ConnectHardwareKeyboard 0 ` +
       "-DeviceSetPath $HOME/Library/Developer/CoreSimulator/Devices > /dev/null 2>&1 < /dev/null &'";
+
     await exec.execWithRetriesAndLogs(cmd, undefined, { trying: `Launching device ${udid}...` }, 1);
   }
 
@@ -250,37 +258,20 @@ class AppleSimUtils {
     return _.map(launchArgs, (v, k) => `${k} ${v}`).join(' ').trim();
   }
 
-  async _launchMagically(frameworkPath, logsInfo, udid, bundleId, args) {
+  async _launchMagically(frameworkPath, udid, bundleId, args) {
     const statusLogs = {
       trying: `Launching ${bundleId}...`,
-      successful: `${bundleId} launched. The stdout and stderr logs were recreated, you can watch them with:\n` +
-      `        tail -F ${logsInfo.absJoined}`
+      successful: `${bundleId} launched.`,
     };
 
-    const launchBin = `/bin/cat /dev/null >${logsInfo.absStdout} 2>${logsInfo.absStderr} && ` +
-      `SIMCTL_CHILD_DYLD_INSERT_LIBRARIES="${frameworkPath}/Detox" ` +
-      `/usr/bin/xcrun simctl launch --stdout=${logsInfo.simStdout} --stderr=${logsInfo.simStderr} ` +
-      `${udid} ${bundleId} --args ${args}`;
+    const launchBin = `SIMCTL_CHILD_DYLD_INSERT_LIBRARIES="${frameworkPath}/Detox" ` +
+      `/usr/bin/xcrun simctl launch ${udid} ${bundleId} --args ${args}`;
 
     return await exec.execWithRetriesAndLogs(launchBin, undefined, statusLogs, 1);
   }
 
   _parseLaunchId(result) {
     return parseInt(_.get(result, 'stdout', ':').trim().split(':')[1]);
-  }
-}
-
-class LogsInfo {
-  constructor(udid) {
-    const logPrefix = '/tmp/detox.last_launch_app_log.';
-    this.simStdout = logPrefix + 'out';
-    this.simStderr = logPrefix + 'err';
-
-    const HOME = environment.getHomeDir();
-    const simDataRoot = `${HOME}/Library/Developer/CoreSimulator/Devices/${udid}/data`;
-    this.absStdout = simDataRoot + this.simStdout;
-    this.absStderr = simDataRoot + this.simStderr;
-    this.absJoined = `${simDataRoot}${logPrefix}{out,err}`
   }
 }
 

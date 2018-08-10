@@ -9,38 +9,27 @@ class SimulatorLogPlugin extends LogArtifactPlugin {
     this.appleSimUtils = config.appleSimUtils;
   }
 
-  async onShutdownDevice(event) {
-    await super.onShutdownDevice(event);
-    await this._tryStopCurrentRecording();
-  }
-
-  async onBeforeLaunchApp(event) {
-    await super.onBeforeLaunchApp(event);
-    await this._tryStopCurrentRecording();
-  }
-
-  async _tryStopCurrentRecording() {
-    if (this.currentRecording) {
-      await this.currentRecording.stop();
-    }
+  async onBootDevice(event) {
+    await super.onBootDevice(event);
+    await this._tryToLaunchCurrentRecording();
   }
 
   async onLaunchApp(event) {
     await super.onLaunchApp(event);
+    await this._tryToLaunchCurrentRecording();
+  }
 
+  async _tryToLaunchCurrentRecording() {
     if (this.currentRecording) {
       await this.currentRecording.start();
     }
   }
 
   createTestRecording() {
-    const udid = this.context.deviceId;
-    const { stdout, stderr } = this.appleSimUtils.getLogsPaths(udid);
-
     return new SimulatorLogRecording({
+      udid: this.context.deviceId,
+      appleSimUtils: this.appleSimUtils,
       temporaryLogPath: tempfile('.log'),
-      logStderr: stderr,
-      logStdout: stdout,
     });
   }
 }
