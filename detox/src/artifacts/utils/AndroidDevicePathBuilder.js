@@ -6,7 +6,11 @@ class AndroidDevicePathBuilder {
   }
 
   buildTemporaryArtifactPath(extension) {
-    return `/sdcard/${this.prefix}_${this.counter++}${extension}`;
+    return `/sdcard/detox_${this.prefix}_${this.counter++}${extension}`;
+  }
+
+  getTemporaryFilesMask() {
+    return `/sdcard/detox_*`;
   }
 }
 

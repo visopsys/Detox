@@ -11,7 +11,7 @@ describe(AndroidDevicePathBuilder, () => {
 
   it('should generate current timestamp string by default', () => {
     const builder = new AndroidDevicePathBuilder();
-    expect(builder.buildTemporaryArtifactPath('.log')).toMatch(/^\/sdcard\/\d+_\d+\.log$/);
+    expect(builder.buildTemporaryArtifactPath('.log')).toMatch(/^\/sdcard\/detox_\d+_\d+\.log$/);
   });
 });
 
