@@ -25,7 +25,9 @@ class EmulatorTelnet {
 
     log.trace({ event: 'TELNET_CONNECTING' }, `port: ${port}, host: ${params.host}`);
     await this.connection.connect(params);
+
     const auth = await fs.readFile(path.join(os.homedir(), '.emulator_console_auth_token'), 'utf8');
+    log.trace({ event: 'TELNET_AUTHENTICATING' }, `auth ${auth}`);
     await this.exec(`auth ${auth}`);
   }
 

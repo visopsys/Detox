@@ -147,6 +147,7 @@ class Device {
   }
 
   async reloadReactNative() {
+    log.trace({ event: 'RELOAD_REACT_NATIVE' }, 'Reloading React Native...');
     await this.deviceDriver.reloadReactNative();
   }
 

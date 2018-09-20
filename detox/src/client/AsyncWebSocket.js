@@ -9,7 +9,7 @@ class AsyncWebSocket {
     this.log = log.child({ url });
     this.url = url;
     this.ws = undefined;
-    this.inFlightPromises = {};
+    this.inFlightPromises = new Map();
     this.eventCallbacks = {};
     this.messageIdCounter = 0;
   }
@@ -25,22 +25,28 @@ class AsyncWebSocket {
       this.ws.onerror = (err) => {
         this.log.error({ event: 'WEBSOCKET_ERROR', err }, `caught error: ${err}`);
 
-        if (_.size(this.inFlightPromises) === 1) {
-          _.values(this.inFlightPromises)[0].reject(err);
-          this.inFlightPromises = {};
+        const openPromise = this.inFlightPromises.get(0); // NOTE: 0 = OPEN
+        if (openPromise) {
+          this.inFlightPromises.clear();
+          openPromise.reject();
         } else {
-          throw err;
+          this.rejectAll(err);
         }
       };
 
       this.ws.onmessage = (response) => {
         this.log.trace({ event: 'WEBSOCKET_MESSAGE' }, `${response.data}`);
 
-        let messageId = JSON.parse(response.data).messageId;
-        let pendingPromise = this.inFlightPromises[messageId];
+        let { type, role, messageId } = JSON.parse(response.data);
+        if (type === 'clientDisconnected' && role === 'testee') {
+          this.rejectAll(new Error('Instrumentation process has crashed on the device.'));
+          return;
+        }
+
+        let pendingPromise = this.inFlightPromises.get(messageId);
         if (pendingPromise) {
           pendingPromise.resolve(response.data);
-          delete this.inFlightPromises[messageId];
+          this.inFlightPromises.delete(messageId);
         }
         let eventCallback = this.eventCallbacks[messageId];
         if (eventCallback) {
@@ -48,7 +54,7 @@ class AsyncWebSocket {
         }
       };
 
-      this.inFlightPromises[this.messageIdCounter] = {resolve, reject};
+      this.inFlightPromises.set(this.messageIdCounter, {resolve, reject});
     });
   }
 
@@ -59,9 +65,9 @@ class AsyncWebSocket {
 
     return new Promise(async(resolve, reject) => {
       message.messageId = messageId || this.messageIdCounter++;
-      this.inFlightPromises[message.messageId] = {resolve, reject};
+      this.inFlightPromises.set(message.messageId, {resolve, reject});
       const messageAsString = JSON.stringify(message);
-      this.log.trace({ event: 'WEBSOCKET_SEND' }, `${messageAsString}`);
+      this.log.trace({ event: 'WEBSOCKET_SEND' }, messageAsString);
       this.ws.send(messageAsString);
     });
   }
@@ -97,11 +103,8 @@ class AsyncWebSocket {
   }
 
   rejectAll(error) {
-    _.forEach(this.inFlightPromises, (promise, messageId) => {
-      let pendingPromise = this.inFlightPromises[messageId];
-      pendingPromise.reject(error);
-      delete this.inFlightPromises[messageId];
-    });
+    this.inFlightPromises.forEach((promise) => promise.reject(error));
+    this.inFlightPromises.clear();
   }
 }
 

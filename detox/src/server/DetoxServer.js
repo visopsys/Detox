@@ -43,6 +43,7 @@ class DetoxServer {
         if (sessionId && role) {
           this.log.debug({ event: 'DISCONNECT' }, `role=${role}, sessionId=${sessionId}`);
           _.set(this.sessions, [sessionId, role], undefined);
+          this.sendToOtherRole(sessionId, role, { type: `clientDisconnected`, role });
         }
       });
     });
