@@ -46,6 +46,24 @@ function copyNpmRc() {
 	execSync(`cp -rf ${npmrcPath} .`);
 }
 
+function generateArtifacts() {
+  if (exec('cd detox/android && ./gradlew :installArchives').code) {
+    console.log('Could not generate artifacts');
+    exit(1);
+  }
+	const artifacts = ['-javadoc.jar', '-sources.jar', '.aar', '.pom'].map(suffix => {
+	  return `detox-${``}${suffix}`;
+  });
+
+	artifacts.forEach(name => {
+	  if (
+	    !test(
+
+      )
+    )
+  });
+}
+
 function release() {
 	execSync(`scripts/publish.sh`);
 }
@@ -56,7 +74,7 @@ function run() {
 	}
 	setupGit();
 	copyNpmRc();
-
+	generateArtifacts();
 	release();
 }
 

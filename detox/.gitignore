@@ -7,7 +7,6 @@ ios/EarlGrey/Tests/UnitTests/TestRig/Resources
 ios/EarlGrey/Tests/FunctionalTests/TestRig/Resources
 Detox.framework
 Detox.framework.tar
-detox-*.aar
 
 lib
 
@@ -220,3 +219,4 @@ buck-out/
 \.buckd/
 android/app/libs
 android/keystores/debug.keystore
+/AndroidDetox/

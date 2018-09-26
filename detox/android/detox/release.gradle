@@ -1,0 +1,116 @@
+apply plugin: 'maven'
+apply plugin: 'signing'
+
+def isReleaseBuild() {
+    return !VERSION_NAME.contains('SNAPSHOT')
+}
+
+def configureDetoxPom(def pom) {
+    pom.project {
+        name POM_NAME
+        artifactId POM_ARTIFACT_ID
+        packaging POM_PACKAGING
+        description 'Gray Box End-to-End Testing and Automation Framework for Mobile Apps'
+        url 'https://github.com/wix/detox'
+
+        scm {
+            url 'https://github.com/wix/detox.git'
+            connection 'scm:git:https://github.com/wix/detox.git'
+            developerConnection 'scm:git:git@github.com:wix/detox.git'
+        }
+
+        licenses {
+            license {
+                name 'MIT License'
+                url 'https://github.com/wix/detox/blob/master/LICENSE'
+                distribution 'repo'
+            }
+        }
+
+        developers {
+            developer {
+                id 'wix'
+                name 'Wix.com'
+            }
+        }
+    }
+}
+
+if (JavaVersion.current().isJava8Compatible()) {
+    allprojects {
+        tasks.withType(Javadoc) {
+            options.addStringOption('Xdoclint:none', '-quiet')
+        }
+    }
+}
+
+afterEvaluate { project ->
+
+    version = VERSION_NAME
+    group = GROUP
+
+    task androidJavadoc(type: Javadoc) {
+        source = android.sourceSets.main.java.srcDirs
+        classpath += files(android.bootClasspath)
+        classpath += files(project.getConfigurations().getByName('compile').asList())
+        include '**/*.java'
+        exclude '**/BuildConfig.java'
+        exclude '**/R.java'
+    }
+
+    task androidJavadocJar(type: Jar, dependsOn: androidJavadoc) {
+        classifier = 'javadoc'
+        from androidJavadoc.destinationDir
+    }
+
+    task androidSourcesJar(type: Jar) {
+        classifier = 'sources'
+        from android.sourceSets.main.java.srcDirs
+        include '**/*.java'
+    }
+
+    android.libraryVariants.all { variant ->
+        def name = variant.name.capitalize()
+        task "jar${name}"(type: Jar, dependsOn: variant.javaCompile) {
+            from variant.javaCompile.destinationDir
+        }
+        variant.outputs.all { output ->
+            def outputFile = output.outputFile
+            if (outputFile != null && outputFile.name.endsWith('.aar')) {
+                def fileName = "${archivesBaseName}-${version}.aar"
+                outputFileName = new File("../../../../../AndroidDetox/com/wix/detox/${version}/", fileName)
+            }
+        }
+    }
+
+    artifacts {
+        archives androidSourcesJar
+        archives androidJavadocJar
+    }
+
+    signing {
+        required { isReleaseBuild() && gradle.taskGraph.hasTask('uploadArchives') }
+        sign configurations.archives
+    }
+
+    uploadArchives {
+        configuration = configurations.archives
+        repositories.mavenDeployer {
+            beforeDeployment {
+                MavenDeployment deployment -> signing.signPom(deployment)
+            }
+
+            configureDetoxPom pom
+        }
+    }
+
+    task installArchives(type: Upload) {
+        configuration = configurations.archives
+        repositories.mavenDeployer {
+            // Deploy to detox/AndroidDetox, ready to publish to npm
+            repository url: "file://${projectDir}/../../AndroidDetox"
+
+            configureDetoxPom pom
+        }
+    }
+}
