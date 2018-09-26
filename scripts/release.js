@@ -1,8 +1,9 @@
 const cp = require('child_process');
 const p = require('path');
+const {echo, exec, exit, sed, cat} = require('shelljs');
 
 function execSync(cmd) {
-	cp.execSync(cmd, { stdio: ['inherit', 'inherit', 'inherit'] });
+  cp.execSync(cmd, { stdio: ['inherit', 'inherit', 'inherit'] });
 }
 
 function execSyncRead(cmd) {
@@ -47,20 +48,40 @@ function copyNpmRc() {
 }
 
 function generateArtifacts() {
-  if (exec('cd detox/android && ./gradlew :installArchives').code) {
-    console.log('Could not generate artifacts');
+  let packageJsonVersion = JSON.parse(cat('detox/package.json')).version;
+  if (
+    sed(
+      '-i',
+      /^VERSION_NAME=.*/,
+      `VERSION_NAME=${packageJsonVersion}`,
+      'detox/android/gradle.properties',
+    ).code
+  ) {
+    echo("Couldn't update version for Gradle");
     exit(1);
   }
-	const artifacts = ['-javadoc.jar', '-sources.jar', '.aar', '.pom'].map(suffix => {
-	  return `detox-${``}${suffix}`;
+  if (exec('cd detox/android && ./gradlew :installArchives').code) {
+    echo('Could not generate artifacts');
+    exit(1);
+  }
+  exec('cd ../../');
+
+  exec('git checkout detox/android/gradle.properties');
+
+  const artifacts = ['-javadoc.jar', '-sources.jar', '.aar', '.pom'].map(suffix => {
+	  return `detox-${packageJsonVersion}${suffix}`;
   });
 
 	artifacts.forEach(name => {
 	  if (
 	    !test(
-
+        '-e',
+        `./detox/AndroidDetox/com/wix/detox/${packageJsonVersion}/${name}`,
       )
-    )
+    ) {
+      echo(`file ${name} was not generated`);
+      exit(1);
+    }
   });
 }
 
