@@ -141,7 +141,7 @@ publishing {
                 artifact javadocJar
                 groupId 'detox'
                 artifactId 'detox'
-                version "9.9.9-${variant.name}"
+                version "${project.findProperty('VERSION') ?: '1.0.0'}-${variant.name}"
             }
         }
     }
