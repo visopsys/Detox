@@ -85,3 +85,64 @@ dependencies {
     testImplementation 'org.assertj:assertj-core:3.8.0'
     testImplementation 'org.apache.commons:commons-io:1.3.2'
 }
+
+/* 
+ * =========================================================
+ * publish fatjar (poms + aars + sourcejars + javadocs) :
+ * =========================================================
+ */
+
+apply plugin: 'digital.wup.android-maven-publish'
+
+println "Publish artifacts to: $buildDir/output"
+
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
+
+task javadoc(type: Javadoc) {
+    failOnError false
+    source android.sourceSets.main.java.srcDirs
+    classpath += files(android.bootClasspath)
+    classpath += files(project.configurations.getByName('compile').asList())
+    classpath += files(android.libraryVariants.collect { variant ->
+        variant.javaCompile.classpath.files
+    }.flatten())
+    options {
+        memberLevel = JavadocMemberLevel.PUBLIC
+        docEncoding = 'UTF-8'
+        encoding = 'UTF-8'
+        charSet = 'UTF-8'
+        locale = 'en_US'
+        links "https://docs.oracle.com/javase/7/docs/api/"
+        linksOffline "https://developer.android.com/reference/", "${project.android.sdkDirectory}/docs/reference"
+    }
+    exclude '**/BuildConfig.java'
+    exclude '**/R.java'
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+publishing {
+    repositories {
+        maven {
+            url = "$buildDir/output"
+        }
+    }
+    publications {
+        android.libraryVariants.all { variant ->
+            "maven${variant.name.capitalize()}Aar"(MavenPublication) {
+                from components.findByName("android${variant.name.capitalize()}")
+                artifact sourcesJar
+                artifact javadocJar
+                groupId 'detox'
+                artifactId 'detox'
+                version "9.9.9-${variant.name}"
+            }
+        }
+    }
+}
