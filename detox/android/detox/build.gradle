@@ -92,7 +92,7 @@ dependencies {
  * =========================================================
  */
 
-apply plugin: 'digital.wup.android-maven-publish'
+apply plugin: 'maven-publish'
 
 println "Publish artifacts to: $buildDir/output"
 
@@ -127,6 +127,17 @@ task javadocJar(type: Jar, dependsOn: javadoc) {
     from javadoc.destinationDir
 }
 
+project.afterEvaluate {
+  project.tasks.all { task ->
+      android.libraryVariants.all { variant ->
+          def v = variant.name.capitalize()
+          if (task.name == "publishMaven${v}AarPublicationToMavenRepository") {
+              task.dependsOn "assemble${v}"
+          }
+      }
+  }
+}
+
 publishing {
     repositories {
         maven {
@@ -137,7 +148,9 @@ publishing {
         android.libraryVariants.all { variant ->
           if (variant.buildType.name == 'release') {
             "maven${variant.name.capitalize()}Aar"(MavenPublication) {
-                from components.findByName("android${variant.name.capitalize()}")
+                variant.outputs.forEach { output ->
+                  artifact output.outputFile
+                }
                 artifact sourcesJar
                 artifact javadocJar
                 groupId 'detox'
