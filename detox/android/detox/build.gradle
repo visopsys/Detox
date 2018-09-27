@@ -86,7 +86,7 @@ dependencies {
     testImplementation 'org.apache.commons:commons-io:1.3.2'
 }
 
-/* 
+/*
  * =========================================================
  * publish fatjar (poms + aars + sourcejars + javadocs) :
  * =========================================================
@@ -94,7 +94,7 @@ dependencies {
 
 apply plugin: 'maven-publish'
 
-println "Publish artifacts to: $buildDir/output"
+println "Publish artifacts to: $buildDir../../../../DetoxAndroid"
 
 task sourcesJar(type: Jar) {
     from android.sourceSets.main.java.srcDirs
@@ -128,36 +128,36 @@ task javadocJar(type: Jar, dependsOn: javadoc) {
 }
 
 project.afterEvaluate {
-  project.tasks.all { task ->
-      android.libraryVariants.all { variant ->
-          def v = variant.name.capitalize()
-          if (task.name == "publishMaven${v}AarPublicationToMavenRepository") {
-              task.dependsOn "assemble${v}"
-          }
-      }
-  }
+    project.tasks.all { task ->
+        android.libraryVariants.all { variant ->
+            def v = variant.name.capitalize()
+            if (task.name == "publishMaven${v}AarPublicationToMavenRepository") {
+                task.dependsOn "assemble${v}"
+            }
+        }
+    }
 }
 
 publishing {
     repositories {
         maven {
-            url = "$buildDir/output"
+            url = "$buildDir../../../../DetoxAndroid"
         }
     }
     publications {
         android.libraryVariants.all { variant ->
-          if (variant.buildType.name == 'release') {
-            "maven${variant.name.capitalize()}Aar"(MavenPublication) {
-                variant.outputs.forEach { output ->
-                  artifact output.outputFile
+            if (variant.buildType.name == 'release') {
+                "maven${variant.name.capitalize()}Aar"(MavenPublication) {
+                    variant.outputs.forEach { output ->
+                        artifact output.outputFile
+                    }
+                    artifact sourcesJar
+                    artifact javadocJar
+                    groupId 'com.wix'
+                    artifactId 'detox'
+                    version "${project.findProperty('VERSION') ?: '1.0.0'}-${variant.name}"
                 }
-                artifact sourcesJar
-                artifact javadocJar
-                groupId 'detox'
-                artifactId 'detox'
-                version "${project.findProperty('VERSION') ?: '1.0.0'}-${variant.name}"
             }
-          }
         }
     }
 }
