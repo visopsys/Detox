@@ -135,6 +135,7 @@ publishing {
     }
     publications {
         android.libraryVariants.all { variant ->
+          if (variant.buildType.name == 'release') {
             "maven${variant.name.capitalize()}Aar"(MavenPublication) {
                 from components.findByName("android${variant.name.capitalize()}")
                 artifact sourcesJar
@@ -143,6 +144,7 @@ publishing {
                 artifactId 'detox'
                 version "${project.findProperty('VERSION') ?: '1.0.0'}-${variant.name}"
             }
+          }
         }
     }
 }
