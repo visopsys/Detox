@@ -227,7 +227,15 @@ module.exports = function getGenerator({
   }
 
   // These types need no wrapping with {type: ..., value: }
-  const plainArgumentTypes = ['id', 'id<GREYAction>', 'id<GREYMatcher>', 'GREYElementInteraction*', 'String', 'ArrayList<String>'];
+  const plainArgumentTypes = [
+    'id',
+    'id<GREYAction>',
+    'id<GREYMatcher>',
+    'GREYElementInteraction*',
+    'String',
+    'ArrayList<String>',
+    'ViewAction'
+  ];
 
   function shouldBeWrapped({ type }) {
     return !plainArgumentTypes.includes(type);

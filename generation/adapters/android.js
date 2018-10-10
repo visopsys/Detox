@@ -66,7 +66,8 @@ module.exports = generator({
   ],
   renameTypesMap: {
     int: 'Integer', // TODO: add test
-    double: 'Double'
+    double: 'Double',
+    ViewInteraction: 'Invocation'
   },
   classValue: ({ package: pkg, name }) => `${pkg}.${name}`
 });

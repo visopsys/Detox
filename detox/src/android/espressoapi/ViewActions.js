@@ -32,10 +32,7 @@ class ViewActions {
         value: "android.support.test.espresso.action.ViewActions"
       },
       method: "actionWithAssertions",
-      args: [{
-        type: "ViewAction",
-        value: viewAction
-      }]
+      args: [viewAction]
     };
   }
 
@@ -69,10 +66,7 @@ class ViewActions {
           value: "android.support.test.espresso.action.ViewActions"
         },
         method: "click",
-        args: [{
-          type: "ViewAction",
-          value: rollbackAction
-        }]
+        args: [rollbackAction]
       };
     }
 
@@ -289,10 +283,7 @@ class ViewActions {
         value: "android.support.test.espresso.action.ViewActions"
       },
       method: "repeatedlyUntil",
-      args: [{
-        type: "ViewAction",
-        value: action
-      }, {
+      args: [action, {
         type: "Invocation",
         value: sanitize_matcher(desiredStateMatcher)
       }, {

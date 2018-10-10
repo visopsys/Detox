@@ -15,12 +15,9 @@ class EspressoDetox {
       },
       method: "perform",
       args: [{
-        type: "ViewInteraction",
+        type: "Invocation",
         value: interaction
-      }, {
-        type: "ViewAction",
-        value: action
-      }]
+      }, action]
     };
   }
 

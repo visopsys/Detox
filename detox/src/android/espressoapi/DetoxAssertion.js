@@ -22,7 +22,7 @@ class DetoxAssertion {
       },
       method: "assertMatcher",
       args: [{
-        type: "ViewInteraction",
+        type: "Invocation",
         value: i
       }, {
         type: "Invocation",
@@ -39,7 +39,7 @@ class DetoxAssertion {
       },
       method: "assertNotVisible",
       args: [{
-        type: "ViewInteraction",
+        type: "Invocation",
         value: i
       }]
     };
@@ -53,7 +53,7 @@ class DetoxAssertion {
       },
       method: "assertNotExists",
       args: [{
-        type: "ViewInteraction",
+        type: "Invocation",
         value: i
       }]
     };
@@ -68,7 +68,7 @@ class DetoxAssertion {
       },
       method: "waitForAssertMatcher",
       args: [{
-        type: "ViewInteraction",
+        type: "Invocation",
         value: i
       }, {
         type: "Invocation",
@@ -88,15 +88,12 @@ class DetoxAssertion {
       },
       method: "waitForAssertMatcherWithSearchAction",
       args: [{
-        type: "ViewInteraction",
+        type: "Invocation",
         value: i
       }, {
         type: "Invocation",
         value: sanitize_matcher(m)
-      }, {
-        type: "ViewAction",
-        value: searchAction
-      }, {
+      }, searchAction, {
         type: "Invocation",
         value: sanitize_matcher(searchMatcher)
       }]
