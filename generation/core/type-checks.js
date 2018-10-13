@@ -68,48 +68,6 @@ if (
   });
 }
 
-function isOfClass(className) {
-  return ({ name }) =>
-    template(`
-	if (
-		(
-      typeof ARG !== 'object' ||
-		  typeof ARG.constructor !== 'function' ||
-      ARG.constructor.name.indexOf('${className}') === -1
-    ) && (
-      typeof ARG !== 'object' ||
-      ARG.type !== 'Invocation' ||
-      typeof ARG.value !== 'object' ||
-      typeof ARG.value.target !== 'object' ||
-      ARG.value.target.value.indexOf('${className}') === -1
-    ) && (
-      typeof ARG !== 'function' ||
-      typeof ARG() !== 'object' ||
-		  typeof ARG().constructor !== 'function' ||
-      ARG().constructor.name.indexOf('${className}') === -1
-    )
-	) {
-    let additionalErrorInfo = '';
-    let item = ARG;
-    if (typeof item === 'function') {
-      item = item();
-      additionalErrorInfo += 'it is a function which returns "' + item +'" and ';
-    }
-
-    if (typeof item === 'object') {
-      additionalErrorInfo += (typeof item.constructor === 'object' ? 'the constructor is no object' : 'it has a wrong class name: "' + item.constructor.name +'"');
-      additionalErrorInfo += 'The current value is ' + JSON.stringify(item);
-    } else {
-      additionalErrorInfo += 'it is no object';
-    }
-
-		throw new Error('${name} should be an instance of ${className}, got "' + ARG + '", it appears that ' + additionalErrorInfo);
-	}
-	`)({
-      ARG: t.identifier(name)
-    });
-}
-
 function isDefined() {
   return ({ name }) =>
     template(`
@@ -130,7 +88,6 @@ module.exports = {
   isGreyAction,
   isGreyMatcher,
   isArray,
-  isOfClass,
   isGreyElementInteraction,
   isDefined
 };

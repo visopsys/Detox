@@ -273,25 +273,7 @@ class ViewActions {
   }
 
   static repeatedlyUntil(action, desiredStateMatcher, maxAttempts) {
-    if ((typeof desiredStateMatcher !== 'object' || typeof desiredStateMatcher.constructor !== 'function' || desiredStateMatcher.constructor.name.indexOf('Matcher') === -1) && (typeof desiredStateMatcher !== 'object' || desiredStateMatcher.type !== 'Invocation' || typeof desiredStateMatcher.value !== 'object' || typeof desiredStateMatcher.value.target !== 'object' || desiredStateMatcher.value.target.value.indexOf('Matcher') === -1) && (typeof desiredStateMatcher !== 'function' || typeof desiredStateMatcher() !== 'object' || typeof desiredStateMatcher().constructor !== 'function' || desiredStateMatcher().constructor.name.indexOf('Matcher') === -1)) {
-      let additionalErrorInfo = '';
-      let item = desiredStateMatcher;
-
-      if (typeof item === 'function') {
-        item = item();
-        additionalErrorInfo += 'it is a function which returns "' + item + '" and ';
-      }
-
-      if (typeof item === 'object') {
-        additionalErrorInfo += typeof item.constructor === 'object' ? 'the constructor is no object' : 'it has a wrong class name: "' + item.constructor.name + '"';
-        additionalErrorInfo += 'The current value is ' + JSON.stringify(item);
-      } else {
-        additionalErrorInfo += 'it is no object';
-      }
-
-      throw new Error('desiredStateMatcher should be an instance of Matcher, got "' + desiredStateMatcher + '", it appears that ' + additionalErrorInfo);
-    }
-
+    ;
     if (typeof maxAttempts !== "number") throw new Error("maxAttempts should be a number, but got " + (maxAttempts + (" (" + (typeof maxAttempts + ")"))));
     return {
       target: {
