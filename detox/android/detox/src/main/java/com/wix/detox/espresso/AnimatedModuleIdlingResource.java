@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.Choreographer;
 
 import com.wix.detox.ReactNativeCompat;
+import com.wix.detox.utils.ReactContextReflected;
 
 import org.joor.Reflect;
 import org.joor.ReflectException;
@@ -33,7 +34,6 @@ public class AnimatedModuleIdlingResource implements IdlingResource, Choreograph
 
     private final static String CLASS_ANIMATED_MODULE = "com.facebook.react.animated.NativeAnimatedModule";
     private final static String METHOD_GET_NATIVE_MODULE = "getNativeModule";
-    private final static String METHOD_HAS_NATIVE_MODULE = "hasNativeModule";
     private final static String METHOD_IS_EMPTY = "isEmpty";
 
     private final static String LOCK_OPERATIONS = "mOperationsCopyLock";
@@ -43,12 +43,9 @@ public class AnimatedModuleIdlingResource implements IdlingResource, Choreograph
     private final static String FIELD_ITERATIONS = "mIterations";
     private final static String FIELD_ACTIVE_ANIMATIONS = "mActiveAnimations";
     private final static String FIELD_UPDATED_NODES = "mUpdatedNodes";
-    private final static String FIELD_CATALYST_INSTANCE = "mCatalystInstance";
 
     private final static String METHOD_SIZE = "size";
     private final static String METHOD_VALUE_AT = "valueAt";
-
-    private final static String METHOD_HAS_ACTIVE_ANIMATIONS = "hasActiveAnimations";
 
     private ResourceCallback callback = null;
     private Object reactContext = null;
@@ -76,14 +73,16 @@ public class AnimatedModuleIdlingResource implements IdlingResource, Choreograph
         }
 
         try {
+            final ReactContextReflected reactContextRefl = new ReactContextReflected(reactContext);
+
             // reactContext.hasActiveCatalystInstance() should be always true here
             // if called right after onReactContextInitialized(...)
-            if (Reflect.on(reactContext).field(FIELD_CATALYST_INSTANCE).get() == null) {
+            if (reactContextRefl.getCatalystInstance() == null) {
                 Log.e(LOG_TAG, "No active CatalystInstance. Should never see this.");
                 return false;
             }
 
-            if (!(boolean) Reflect.on(reactContext).call(METHOD_HAS_NATIVE_MODULE, animModuleClass).get()) {
+            if (!reactContextRefl.hasNativeModule(animModuleClass)) {
                 Log.e(LOG_TAG, "Can't find Animated Module.");
                 if (callback != null) {
                     callback.onTransitionToIdle();
