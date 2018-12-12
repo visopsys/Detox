@@ -1,13 +1,16 @@
-import * as cosmiconfig from 'cosmiconfig';
+const cp = require('child_process');
 
 module.exports = {
   name: 'build',
   alias: 'b',
   description: 'build the application with the configured command',
   run: async (context) => {
-    const { print, config } = context;
+    const configuration = context.getConfiguration();
 
-    const localConfig = cosmiconfig('detox').searchSync(process.cwd()).config || {};
-    print.table([['Key', 'Value'], ...Object.entries(localConfig.configurations)]);
+    if (!configuration || !configuration.build) {
+      // log error
+    }
+
+    cp.execSync(configuration.build, { stdio: 'inherit' });
   }
 };
