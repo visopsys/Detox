@@ -1,23 +1,23 @@
-const { build } = require('gluegun')
+#!/usr/bin/env node
+const build = require('gluegun').build;
 
 /**
  * Create the cli and kick it off
  */
-async function run (argv) {
+async function run(argv) {
   // create a CLI runtime
   const cli = build()
     .brand('detox')
     .src(__dirname)
-    .plugins('./node_modules', { matching: 'detox-*', hidden: true })
     .help() // provides default for help, h, --help, -h
     .version() // provides default for version, v, --version, -v
-    .create()
+    .create();
 
   // and run it
-  const context = await cli.run(argv)
+  const context = await cli.run(argv);
 
   // send it back (for testing, mostly)
-  return context
+  return context;
 }
 
-module.exports = { run }
+module.exports = { run };

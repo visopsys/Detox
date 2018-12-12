@@ -1,7 +1,7 @@
 module.exports = {
-    name: 'build',
-    run: async (context) => {
-      context.print.printHelp();
-    }
+  name: 'build',
+  run: async context => {
+    console.log(context);
+    context.print.printHelp();
   }
-  
+};
