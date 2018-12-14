@@ -1,6 +1,6 @@
-const cp = require('child_process');
+import * as cp from 'child_process';
 
-module.exports = {
+export default {
   name: 'build',
   alias: 'b',
   description: 'build the application with the configured command',
@@ -8,9 +8,9 @@ module.exports = {
     const configuration = context.getConfiguration();
 
     if (!configuration || !configuration.build) {
-      // log error
+      console.error('Could not find a build script for the given configuration');
+    } else {
+      cp.execSync(configuration.build, { stdio: 'inherit' });
     }
-
-    cp.execSync(configuration.build, { stdio: 'inherit' });
   }
 };

@@ -1,14 +1,15 @@
 import * as cosmiconfig from 'cosmiconfig';
 
-module.exports = (context) => {
+export default (context) => {
   context.getConfiguration = () => {
     const {
       parameters: { options }
     } = context;
-    const { configurations } = cosmiconfig('detox').searchSync(process.cwd()).config || {};
+    const { config = {} } = cosmiconfig('detox').searchSync(process.cwd()) || {};
+    const { configurations = {} } = config;
 
-    if (!Array.isArray(configurations)) {
-      return null;
+    if (Object.keys(configurations).length === 0) {
+      throw new Error('Could not find the configuration');
     }
 
     if (Object.keys(configurations).length === 1) {
@@ -16,7 +17,11 @@ module.exports = (context) => {
     }
 
     const configKey = options['c'] || options['configuration'];
+    const resolvedConfig = configurations[configKey];
+    if (!resolvedConfig) {
+      throw new Error('Could not find the configuration');
+    }
 
-    return configurations[configKey];
+    return resolvedConfig;
   };
 };
