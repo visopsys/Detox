@@ -18,6 +18,7 @@ export default (context) => {
 
     const configKey = options['c'] || options['configuration'];
     const resolvedConfig = configurations[configKey];
+
     if (!resolvedConfig) {
       throw new Error('Could not find the configuration');
     }

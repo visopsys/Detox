@@ -1,4 +1,4 @@
-import build from '../build';
+import build from '../commands/build';
 const { run } = build;
 
 jest.mock('child_process');

@@ -1,4 +1,4 @@
-import plugin from '../config-option';
+import plugin from '../extensions/config-option';
 
 const mockSearchSync = jest.fn();
 jest.mock('cosmiconfig', () => () => ({
