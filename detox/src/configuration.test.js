@@ -18,26 +18,18 @@ describe('configuration', () => {
   });
 
   it(`providing empty server config should throw`, () => {
-    testFaultySession();
+    expect(() => configuration.validateSession()).toThrowErrorMatchingSnapshot();
   });
 
   it(`providing server config with no session should throw`, () => {
-    testFaultySession(schemes.validOneDeviceNoSession.session);
+    expect(() => configuration.validateSession(schemes.validOneDeviceNoSession.session)).toThrowErrorMatchingSnapshot();
   });
 
   it(`providing server config with no session.server should throw`, () => {
-    testFaultySession(schemes.invalidSessionNoServer.session);
+    expect(() => configuration.validateSession(schemes.invalidSessionNoServer.session)).toThrowErrorMatchingSnapshot();
   });
 
   it(`providing server config with no session.sessionId should throw`, () => {
-    testFaultySession(schemes.invalidSessionNoSessionId.session);
+    expect(() => configuration.validateSession(schemes.invalidSessionNoSessionId.session)).toThrowErrorMatchingSnapshot();
   });
-
-  function testFaultySession(config) {
-    try {
-      configuration.validateSession(config);
-    } catch (ex) {
-      expect(ex).toMatchSnapshot();
-    }
-  }
 });
