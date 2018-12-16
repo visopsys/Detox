@@ -4,6 +4,8 @@ const _ = require('lodash');
 const program = require('commander');
 const path = require('path');
 const cp = require('child_process');
+const { Configuration } = require('../src/configuration');
+
 program
   .description(`[convenience method] run the command defined in 'configuration.build'`)
   .option(
@@ -13,17 +15,8 @@ program
   )
   .parse(process.argv);
 
-const config = require(path.join(process.cwd(), 'package.json')).detox;
-
-let buildScript;
-if (program.configuration) {
-  buildScript = _.result(config, `configurations["${program.configuration}"].build`);
-} else if (_.size(config.configurations) === 1) {
-  buildScript = _.values(config.configurations)[0].build;
-} else {
-  throw new Error(`Cannot determine which configuration to use. use --configuration to choose one of the following: 
-                      ${Object.keys(config.configurations)}`);
-}
+const config = new Configuration.fromPath(path.join(process.cwd(), 'package.json'));
+const buildScript = config.getConfiguration(program.configuration).build;
 
 if (buildScript) {
   console.log(buildScript);

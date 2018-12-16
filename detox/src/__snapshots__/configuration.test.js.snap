@@ -1,5 +1,29 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`configuration Configuration getConfiguration throws an error if called with no argument and multiple configurations available 1`] = `
+"Cannot determine which configuration to use. use --configuration to choose one of the following: 
+                            ios.release,android.release"
+`;
+
+exports[`configuration Configuration getConfiguration throws an error if the selected option is not available 1`] = `
+"Cannot determine which configuration to use. use --configuration to choose one of the following: 
+                            ios.release"
+`;
+
+exports[`configuration Configuration throws an error if the file does not contain the right element 1`] = `"The loaded configuration has no detox item"`;
+
+exports[`configuration Configuration throws an error if the file does not exist 1`] = `"Could not load configuration from '../package.json'"`;
+
+exports[`configuration Configuration verification throws if no configurations is given 1`] = `"There must be a configuration in the configurations object"`;
+
+exports[`configuration Configuration verification throws if no configurations key is given 1`] = `"The configuration should have a configurations key"`;
+
+exports[`configuration Configuration verification throws if no object is given 1`] = `"The configuration should be an object"`;
+
+exports[`configuration RunConfiguration getDriver throws an error if no client is there 1`] = `"Need to pass a client"`;
+
+exports[`configuration RunConfiguration getDriver throws an error if the type does not exist 1`] = `"The configuration type 'ios.unknown' is unknown, only these are supported: ios.simulator,ios.none,android.emulator,android.attached"`;
+
 exports[`configuration providing empty server config should throw 1`] = `"No session configuration was found, pass settings under the session property"`;
 
 exports[`configuration providing server config with no session should throw 1`] = `"No session configuration was found, pass settings under the session property"`;
