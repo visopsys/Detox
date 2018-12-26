@@ -172,6 +172,25 @@ class Configuration {
 
     return new RunConfiguration(_.result(this.config, `configurations["${configId}"]`));
   }
+
+  /**
+   * Alias is files
+   * @returns {String} path to test files
+   */
+  get specs() {
+    return this.config.specs || this.config.files || "e2e";
+  }
+
+  /**
+   * @returns {String} test runner should be jest or mocha
+   */
+  get testRunner() {
+    return this.config.testRunner || "mocha"
+  }
+
+  get runnerConfig() {
+    return this.config.runnerConfig;
+  }
 }
 
 module.exports = {

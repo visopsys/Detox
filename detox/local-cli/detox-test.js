@@ -8,7 +8,9 @@ const _ = require('lodash');
 const environment = require('../src/utils/environment');
 const buildDefaultArtifactsRootDirpath = require('../src/artifacts/utils/buildDefaultArtifactsRootDirpath');
 const DetoxConfigError = require('../src/errors/DetoxConfigError');
-const config = require(path.join(process.cwd(), 'package.json')).detox;
+const { Configuration } = require('../src/configuration');
+const config = Configuration.fromPath(path.join(process.cwd(), 'package.json'));
+
 
 program
   .allowUnknownOption()
@@ -18,8 +20,7 @@ program
   .option('--no-color', 'Disable colors in log output')
   .option(
     '-c, --configuration [device configuration]',
-    "Select a device configuration from your defined configurations, if not supplied, and there's only one configuration, detox will default to it",
-    getDefaultConfiguration()
+    "Select a device configuration from your defined configurations, if not supplied, and there's only one configuration, detox will default to it"
   )
   .option('-r, --reuse', 'Reuse existing installed app (do not delete and re-install) for a faster run.')
   .option('-u, --cleanup', 'Shutdown simulator when test is over, useful for CI scripts, to make sure detox exists cleanly with no residue')
@@ -63,20 +64,12 @@ program.artifactsLocation = buildDefaultArtifactsRootDirpath(program.configurati
 
 clearDeviceRegistryLockFile();
 
-if (!program.configuration) {
-  throw new DetoxConfigError(`Cannot determine which configuration to use.
-  Use --configuration to choose one of the following: ${_.keys(config.configurations).join(', ')}`);
-}
-
-if (!config.configurations[program.configuration]) {
-  throw new DetoxConfigError(`Cannot determine configuration '${program.configuration}'.
-    Available configurations: ${_.keys(config.configurations).join(', ')}`);
-}
+const runConfig = config.getConfiguration(program.configuration);
 
 const testFolder = getConfigFor(['file', 'specs'], 'e2e');
 const runner = getConfigFor(['testRunner'], 'mocha');
 const runnerConfig = getConfigFor(['runnerConfig'], getDefaultRunnerConfig());
-const platform = config.configurations[program.configuration].type.split('.')[0];
+const platform = runConfig.platform;
 
 if (platform === 'android' && program.workers !== 1) {
   throw new DetoxConfigError('Can not use -w, --workers. Parallel test execution is only supported on iOS currently');
@@ -222,12 +215,6 @@ function clearDeviceRegistryLockFile() {
   const lockFilePath = environment.getDeviceLockFilePath();
   fs.ensureFileSync(lockFilePath);
   fs.writeFileSync(lockFilePath, '[]');
-}
-
-function getDefaultConfiguration() {
-  if (_.size(config.configurations) === 1) {
-    return _.keys(config.configurations)[0];
-  }
 }
 
 // This is very incomplete, don't use this for user input!
