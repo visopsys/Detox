@@ -104,6 +104,7 @@ class Detox {
     await this._handleAppCrashIfAny(testSummary.fullName);
     await this.artifactsManager.onBeforeEach(testSummary);
     await this.client.testLifecycleEvent(testSummary);
+    this.device.setCurrentTestSummary(testSummary);
   }
 
   async afterEach(testSummary) {
@@ -112,6 +113,7 @@ class Detox {
     await this.artifactsManager.onAfterEach(testSummary);
     await this._handleAppCrashIfAny(testSummary.fullName);
     await this.client.testLifecycleEvent(testSummary);
+    this.device.setCurrentTestSummary(testSummary);
   }
 
   _logTestRunCheckpoint(event, { status, fullName }) {

@@ -13,6 +13,7 @@ class Device {
     this.deviceDriver = deviceDriver;
     this.deviceDriver.validateDeviceConfig(deviceConfig);
     this.debug = debug;
+    this.currentTestSummary = null;
   }
 
   async prepare(params = {}) {
@@ -40,6 +41,16 @@ class Device {
     delete params[key];
     params[launchKey] = payloadFilePath;
   }
+	
+  setCurrentTestSummary(param) {
+    if(param.status === "running") {
+      this.currentTestSummary = param;
+    }
+    else {
+      //No point sending info about a test that has ended
+      this.currentTestSummary = null;
+    }
+  }
 
   async launchApp(params = {newInstance: false}, bundleId) {
     const payloadParams = ['url', 'userNotification', 'userActivity'];
@@ -65,6 +76,11 @@ class Device {
       this.createPayloadFileAndUpdatesParamsObject('userNotification', 'detoxUserNotificationDataURL', params, baseLaunchArgs);
     } else if (params.userActivity) {
       this.createPayloadFileAndUpdatesParamsObject('userActivity', 'detoxUserActivityDataURL', params, baseLaunchArgs);
+    }
+    
+    if (this.currentTestSummary !== null) {
+      params.currentTestSummary = this.currentTestSummary;
+      this.createPayloadFileAndUpdatesParamsObject('currentTestSummary', 'currentTestSummaryDataURL', params, baseLaunchArgs);
     }
 
     if (params.permissions) {
@@ -94,6 +110,10 @@ class Device {
 
     if(params.detoxUserActivityDataURL) {
       await this.deviceDriver.cleanupRandomDirectory(params.detoxUserActivityDataURL);
+    }
+    
+    if(params.currentTestSummaryDataURL) {
+      await this.deviceDriver.cleanupRandomDirectory(params.currentTestSummaryDataURL);
     }
   }
 
