@@ -1,10 +1,22 @@
 const DetoxConfigError = require('./errors/DetoxConfigError');
 const uuid = require('./utils/uuid');
 const getPort = require('get-port');
+const os = require('os');
+
+function getIp() {
+  const family = 'IPv4';
+  const interfaces = os.networkInterfaces();
+ return Object.keys(interfaces).reduce((arr, x) => {
+   const interface = interfaces[x];
+   return arr.concat(Object.keys(interface)
+     .filter(x => interface[x].family === family && !interface[x].internal)
+     .map(x => interface[x].address));
+ }, []);
+}
 
 async function defaultSession() {
   return {
-    server: `ws://localhost:${await getPort()}`,
+    server: `ws://${getIp()}:${await getPort()}`,
     sessionId: uuid.UUID()
   };
 }
