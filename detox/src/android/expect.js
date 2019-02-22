@@ -4,6 +4,7 @@ const DetoxActionApi = require('./espressoapi/DetoxAction');
 const ViewActionsApi = require('./espressoapi/ViewActions');
 const DetoxViewActionsApi = require('./espressoapi/DetoxViewActions');
 const DetoxAssertionApi = require('./espressoapi/DetoxAssertion');
+const DetoxGetApi = require('./espressoapi/DetoxGet');
 const EspressoDetoxApi = require('./espressoapi/EspressoDetox');
 const DetoxMatcherApi = require('./espressoapi/DetoxMatcher');
 const Matcher = matchers.Matcher;
@@ -248,6 +249,12 @@ class Element {
     // override the user's element selection with an extended matcher that avoids RN issues with RCTScrollView
     this._selectElementWithMatcher(this._originalMatcher._avoidProblematicReactNativeElements());
     return await new ActionInteraction(this, new SwipeAction(direction, speed, percentage)).execute();
+  }
+  async text() {
+    return await invocationManager.execute(DetoxGetApi.text(call(this._call)));
+  }
+  async height() {
+    return await invocationManager.execute(DetoxGetApi.height(call(this._call)));
   }
 }
 
